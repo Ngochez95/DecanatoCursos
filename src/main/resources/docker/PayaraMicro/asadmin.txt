@@ -1,0 +1,5 @@
+create-jdbc-connection-pool --datasourceclassname org.postgresql.ds.PGSimpleDataSource --restype javax.sql.DataSource --property user=cursouser:password=decanatoues:DatabaseName=cursos:ServerName=db:port=5432 postgres_curso_local
+
+ping-connection-pool postgres_cursouser_local
+
+create-jdbc-resource --connectionpoolid postgres_curso_local jdbc/cursos
