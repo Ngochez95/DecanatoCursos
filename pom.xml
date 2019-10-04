@@ -60,7 +60,7 @@
             <artifactId>org.eclipse.persistence.asm</artifactId>
             <version>2.6.1-RC1</version>
         </dependency>
-     <!--   <dependency>
+        <!--   <dependency>
             <groupId>unknown.binary</groupId>
             <artifactId>javax.persistence</artifactId>
             <version>SNAPSHOT</version>
@@ -71,6 +71,13 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>6.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -121,7 +128,7 @@
                 </executions>
             </plugin>
             
-           <plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.6.0</version>

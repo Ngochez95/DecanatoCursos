@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>inicio de sesion</title>
+    </h:head>
+    <body background="img/fondo1.png" style="width: 1200px"   >
+        <center>
+            
+            <h:form>
+                
+                <p:messages autoUpdate="true" showDetail="true"/>
+                
+                <div style="
+                     background-color: rgb(255,255,255,0.7);
+      
+                     width: 24%; 
+                     border-radius: 20px;
+                     position:absolute;
+                     top: 20%;
+                     left:38%;
+                     color: #585858;">
+                    
+                    <table align="center" style="opacity: 1;  font-family:sans-serif; margin-top: 30px;">                        
+                        <tr>
+                            <td colspan="2" align="center">
+                                
+                                <h2 style="                                    
+                                    font-family: sans-serif;
+                                    font-size: 25px;">
+                                    Inicio de sesion</h2>
+                                <br></br>
+                            </td>                            
+                        </tr>
+                        <tr>                            
+                            <td>
+                                <img src="img/user.png" />
+                            </td>
+                            <td>
+                                <p:inputText  id="Usuario" style="
+                                              height: 25px;  
+                                              width:200px;
+                                              border:0;"
+                                              required="true" requiredMessage="Usuario Requerido" placeholder="Usuario" />
+                                <br></br><br></br>
+                            </td>
+                        </tr>                       
+                        <tr>
+                            <td>
+                                <img src="img/pass.png"/>
+                            </td>
+                            <td>
+                                <p:inputText id="Clave" type="password" style=" 
+                                             height: 25px;  
+                                             width:200px;
+                                             border:0;"
+                                             requiredMessage="Contraseña Requerida" required="true" placeholder="Contraseña" />
+                                <br></br><br></br>
+                            </td>
+                        </tr>
+                    </table>
+                    <br></br>
+                    <p:commandButton value="Ingresar"   style="width:150px; height:40px; font-size:18px; "/>
+                    <br></br><br></br><br></br><br></br>
+                </div>
+
+            </h:form>
+            <img src="img/logueo3.png" width="80" height="80" alt="Imagen de logueo2" 
+                 style="
+                 position: absolute;
+                 top:15%;
+                 left:47%;
+                 "/>
+        </center>
+        
+    </body>
+</html>
+
