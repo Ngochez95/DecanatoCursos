@@ -9,25 +9,25 @@
     </h:head>
     <body background="img/fondo1.png" style="width: 1200px"   >
         <center>
-            
+
             <h:form>
-                
+
                 <p:messages autoUpdate="true" showDetail="true"/>
-                
+
                 <div style="
                      background-color: rgb(255,255,255,0.7);
-      
+
                      width: 24%; 
                      border-radius: 20px;
                      position:absolute;
                      top: 20%;
                      left:38%;
                      color: #585858;">
-                    
+
                     <table align="center" style="opacity: 1;  font-family:sans-serif; margin-top: 30px;">                        
                         <tr>
                             <td colspan="2" align="center">
-                                
+
                                 <h2 style="                                    
                                     font-family: sans-serif;
                                     font-size: 25px;">
@@ -44,7 +44,7 @@
                                               height: 25px;  
                                               width:200px;
                                               border:0;"
-                                              required="true" requiredMessage="Usuario Requerido" placeholder="Usuario" />
+                                              required="true" requiredMessage="Usuario Requerido" placeholder="Usuario" value="#{manejadorLogin.admin.nombreUsuario}" />
                                 <br></br><br></br>
                             </td>
                         </tr>                       
@@ -57,13 +57,13 @@
                                              height: 25px;  
                                              width:200px;
                                              border:0;"
-                                             requiredMessage="Contraseña Requerida" required="true" placeholder="Contraseña" />
+                                             requiredMessage="Contraseña Requerida" required="true" placeholder="Contraseña" value="#{manejadorLogin.admin.contrasenia}" />
                                 <br></br><br></br>
                             </td>
                         </tr>
                     </table>
                     <br></br>
-                    <p:commandButton value="Ingresar"   style="width:150px; height:40px; font-size:18px; "/>
+                    <p:commandButton value="Ingresar"   style="width:150px; height:40px; font-size:18px; " action="#{manejadorLogin.autenticacion()}"/>
                     <br></br><br></br><br></br><br></br>
                 </div>
 
@@ -75,7 +75,9 @@
                  left:47%;
                  "/>
         </center>
-        
+        <f:metadata>
+            <f:viewAction action="#{manejadorLogin.login()}" />
+        </f:metadata>
     </body>
 </html>
 

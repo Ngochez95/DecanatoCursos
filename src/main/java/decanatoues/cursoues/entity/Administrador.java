@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Administrador.findByApellidoAdministrador", query = "SELECT a FROM Administrador a WHERE a.apellidoAdministrador = :apellidoAdministrador")
     , @NamedQuery(name = "Administrador.findByNombreUsuario", query = "SELECT a FROM Administrador a WHERE a.nombreUsuario = :nombreUsuario")
     , @NamedQuery(name = "Administrador.findByContrasenia", query = "SELECT a FROM Administrador a WHERE a.contrasenia = :contrasenia")
+    , @NamedQuery(name ="Administrador.Autenticar" , query ="SELECT ad FROM Administrador as ad WHERE ad.nombreUsuario= :usuario AND ad.contrasenia= :contrasenia" )   
     , @NamedQuery(name = "Administrador.findByCorreoAdmin", query = "SELECT a FROM Administrador a WHERE a.correoAdmin = :correoAdmin")})
 public class Administrador implements Serializable {
 

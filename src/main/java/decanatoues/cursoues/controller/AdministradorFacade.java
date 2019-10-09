@@ -6,9 +6,11 @@
 package decanatoues.cursoues.controller;
 
 import decanatoues.cursoues.entity.Administrador;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,23 @@ public class AdministradorFacade extends AbstractFacade<Administrador> {
     public AdministradorFacade() {
         super(Administrador.class);
     }
-    
+
+    public Administrador autenticar(Administrador user) {
+        Administrador usuario= null;
+        try {
+            Query query = em.createNamedQuery("Administrador.Autenticar");
+            query.setParameter("usuario", user.getNombreUsuario());
+            query.setParameter("contrasenia", user.getContrasenia());
+            
+            List<Administrador> lista = query.getResultList();
+            if (!lista.isEmpty()) {
+                usuario = lista.get(0);
+            }
+            
+        } catch (Exception e) {
+        }
+        return usuario;
+
+    }
+
 }
