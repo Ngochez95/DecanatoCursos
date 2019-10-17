@@ -6,75 +6,40 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>inicio de sesion</title>
+        <meta charset="utf-8"/>
+        <title>AUTENTIFICACION</title>
+        <link rel="stylesheet" href="resources/css/style.css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
     </h:head>
-    <body background="img/fondo1.png" style="width: 1200px"   >
-        <center>
+    <body background="img/fondo1_1.png">
+        <p:messages autoUpdate="true" showDetail="true"/>
 
-            <h:form>
+        <h:form  class="login-form">
+            <div style="position: relative; left: 40%">
+                <img src="img/minerva.png" width="100px" height="120px"/>
+            </div>
+            <h1>ADMINISTRADOR</h1>
+            <div class="txt">
 
-                <p:messages autoUpdate="true" showDetail="true"/>
+                <p:inputText  value="#{manejadorLogin.admin.nombreUsuario}" style="border: 0" />
+                <span placeholder="Usuario"></span>
+            </div>
+            <div class="txt">
+                <p:inputText type="password" value="#{manejadorLogin.admin.contrasenia}" style="border: 0" />
+                <span placeholder="Contraseña"></span>
+            </div>
+            <p:commandButton class="btnlog" value="Ingresar" action="#{manejadorLogin.autenticacion()}"/>
+        </h:form>
+        <script type="text/javascript">
+            $(".txt input").on("focus", function () {
+                $(this).addClass("focus");
+            });
 
-                <div style="
-                     background-color: rgb(255,255,255,0.7);
-
-                     width: 24%; 
-                     border-radius: 20px;
-                     position:absolute;
-                     top: 20%;
-                     left:38%;
-                     color: #585858;">
-
-                    <table align="center" style="opacity: 1;  font-family:sans-serif; margin-top: 30px;">                        
-                        <tr>
-                            <td colspan="2" align="center">
-
-                                <h2 style="                                    
-                                    font-family: sans-serif;
-                                    font-size: 25px;">
-                                    Inicio de sesion</h2>
-                                <br></br>
-                            </td>                            
-                        </tr>
-                        <tr>                            
-                            <td>
-                                <img src="img/user.png" />
-                            </td>
-                            <td>
-                                <p:inputText  id="Usuario" style="
-                                              height: 25px;  
-                                              width:200px;
-                                              border:0;"
-                                              required="true" requiredMessage="Usuario Requerido" placeholder="Usuario" value="#{manejadorLogin.admin.nombreUsuario}" />
-                                <br></br><br></br>
-                            </td>
-                        </tr>                       
-                        <tr>
-                            <td>
-                                <img src="img/pass.png"/>
-                            </td>
-                            <td>
-                                <p:inputText id="Clave" type="password" style=" 
-                                             height: 25px;  
-                                             width:200px;
-                                             border:0;"
-                                             requiredMessage="Contraseña Requerida" required="true" placeholder="Contraseña" value="#{manejadorLogin.admin.contrasenia}" />
-                                <br></br><br></br>
-                            </td>
-                        </tr>
-                    </table>
-                    <br></br>
-                    <p:commandButton value="Ingresar"   style="width:150px; height:40px; font-size:18px; " action="#{manejadorLogin.autenticacion()}"/>
-                    <br></br><br></br><br></br><br></br>
-                </div>
-
-            </h:form>
-            <img src="img/logueo3.png" width="80" height="80" alt="Imagen de logueo2" 
-                 style="
-                 position: absolute;
-                 top:15%;
-                 left:47%;
-                 "/>
-        </center>
+            $(".txt input").on("blur", function () {
+                if ($(this).val() == "")
+                    $(this).removeClass("focus");
+            });
+        </script>
         <f:metadata>
             <f:viewAction action="#{manejadorLogin.login()}" />
         </f:metadata>

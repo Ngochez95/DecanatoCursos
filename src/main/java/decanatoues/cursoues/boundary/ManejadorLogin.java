@@ -65,6 +65,34 @@ public class ManejadorLogin implements Serializable {
     public void loginPrincipal() {
         oreo.ComprobarLoginPricipal();
     }
+    
+//    public boolean isadmin(){
+//    id= oreo.UsuarioId();
+//  //  Usuario= adf.find(id);
+//        if (id==1) {
+//            return true;
+//        }else{
+//        return false;
+//        }
+//    }
+
+    public Administrador getUsuario() {
+        return Usuario;
+    }
+
+    public void setUsuario(Administrador Usuario) {
+        this.Usuario = Usuario;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
 
 
 
