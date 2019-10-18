@@ -19,8 +19,9 @@ public class ManejadorLogin implements Serializable {
     @Inject
     private AdministradorFacade adf;
 
-    private Administrador admin, Usuario, direc;
+    private Administrador admin, Usuario, direc, admininistrador;
     private String redireccionar = null, nombreUsuario;
+    private boolean render = false;
     private CookieInstance oreo;
     private int id, id2, idg;
 
@@ -47,7 +48,8 @@ public class ManejadorLogin implements Serializable {
             if (usuario != null) {
                 oreo.CrearCookie(usuario);
                 redireccionar = "principal.jsf?faces-redirect=true";
-                System.out.println(admin.getContrasenia()+admin.getNombreUsuario());
+                System.out.println(admin.getContrasenia() + admin.getNombreUsuario());
+                render = true;
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "aviso:", "usuario o contraseña incorrectos"));
             }
@@ -65,16 +67,21 @@ public class ManejadorLogin implements Serializable {
     public void loginPrincipal() {
         oreo.ComprobarLoginPricipal();
     }
-    
-//    public boolean isadmin(){
-//    id= oreo.UsuarioId();
-//  //  Usuario= adf.find(id);
-//        if (id==1) {
-//            return true;
-//        }else{
-//        return false;
-//        }
-//    }
+
+    public boolean loginadmin() {
+        id = oreo.UsuarioId();
+        if (id > 0) {
+            admininistrador = adf.find(id);
+            if (admininistrador.getIdAdministrador() == 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void cerrarsesion() {
+        oreo.cerrarSesion();
+    }
 
     public Administrador getUsuario() {
         return Usuario;
@@ -91,9 +98,21 @@ public class ManejadorLogin implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-    
-    
 
+    public boolean isRender() {
+        return render;
+    }
 
+    public void setRender(boolean render) {
+        this.render = render;
+    }
+
+    public Administrador getAdmininistrador() {
+        return admininistrador;
+    }
+
+    public void setAdmininistrador(Administrador admininistrador) {
+        this.admininistrador = admininistrador;
+    }
 
 }
