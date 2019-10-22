@@ -5,8 +5,14 @@
  */
 package decanatoues.cursoues.controller;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.EntityManager;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 /**
  *
@@ -23,15 +29,33 @@ public abstract class AbstractFacade<T> {
     protected abstract EntityManager getEntityManager();
 
     public void create(T entity) {
-        getEntityManager().persist(entity);
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<T>> constraintViolations = validator.validate(entity);
+        if (constraintViolations.size() > 0) {
+            Iterator<ConstraintViolation<T>> iterator = constraintViolations.iterator();
+            while (iterator.hasNext()) {
+                ConstraintViolation<T> cv = iterator.next();
+                System.err.println(cv.getRootBeanClass().getName() + "." + cv.getPropertyPath() + " " + cv.getMessage());
+
+                // JsfUtil.addErrorMessage(cv.getRootBeanClass().getSimpleName()+"."+cv.getPropertyPath() + " " +cv.getMessage());
+            }
+        } else {
+            getEntityManager().persist(entity);
+        }
     }
 
     public void edit(T entity) {
         getEntityManager().merge(entity);
     }
 
-    public void remove(T entity) {
-        getEntityManager().remove(getEntityManager().merge(entity));
+    public boolean remove(T entity) {
+        try {
+            getEntityManager().remove(getEntityManager().merge(entity));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public T find(Object id) {
@@ -44,12 +68,12 @@ public abstract class AbstractFacade<T> {
         return getEntityManager().createQuery(cq).getResultList();
     }
 
-    public List<T> findRange(int[] range) {
+    public List<T> findRange(int desde, int hasta) {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));
         javax.persistence.Query q = getEntityManager().createQuery(cq);
-        q.setMaxResults(range[1] - range[0] + 1);
-        q.setFirstResult(range[0]);
+        q.setMaxResults(hasta);
+        q.setFirstResult(desde);
         return q.getResultList();
     }
 
@@ -60,7 +84,7 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-    
+
     public boolean crear(T entity) {
         try {
             getEntityManager().persist(entity);
@@ -87,5 +111,5 @@ public abstract class AbstractFacade<T> {
             return false;
         }
     }
-    
+
 }

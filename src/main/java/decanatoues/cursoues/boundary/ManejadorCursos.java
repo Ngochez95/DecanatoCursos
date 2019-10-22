@@ -20,28 +20,28 @@ import javax.inject.Inject;
  */
 @Named
 @ViewScoped
-public class ManejadorCursos implements Serializable{
+public class ManejadorCursos implements Serializable {
 
     @Inject
     private CursoFacade cursofd;
-    
+
     private Curso curso;
 
     public ManejadorCursos() {
-        this.curso= new Curso();
-        
+        this.curso = new Curso();
+
     }
-    
-    
-    public void crearcurso(){
+
+    public void crearcurso() {
         try {
             System.out.println("entro al métodoOOOOOOOOO");
             this.curso.setCodigoCurso("cursoUes1");
             cursofd.create(curso);
+
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Registro con exito"));
-        } catch (Exception e) {
+        } catch (Exception ex) {
         }
-    
+
     }
 
     public Curso getCurso() {
@@ -51,7 +51,5 @@ public class ManejadorCursos implements Serializable{
     public void setCurso(Curso curso) {
         this.curso = curso;
     }
-    
-    
-    
+
 }

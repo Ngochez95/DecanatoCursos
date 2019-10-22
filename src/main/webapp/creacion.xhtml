@@ -11,90 +11,73 @@
 
 
     </h:head>
-    <h:body>
-        <p:toolbar style="height: 60px ">
-            <f:facet name="left">
-                <img src="img/minerva.png" height="55px" width="40px"/>
-            </f:facet>
-            <f:facet name="right">
-                <p:commandButton value="∷" rendered="#{manejadorLogin.loginadmin()}" oncomplete="PF('sidebar2').show()" style="height: 55px; font-size: 24" />
-            </f:facet>
-        </p:toolbar>
+    <body>
+        <h:form>
+            <p:toolbar style="height: 60px ">
+                <f:facet name="left">
+                    <img src="img/minerva.png" height="55px" width="40px"/>
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton value="∷" rendered="#{manejadorLogin.loginadmin()}" oncomplete="PF('sidebar2').show()" style="height: 55px; font-size: 24" />
+                </f:facet>
+            </p:toolbar>
 
-        <p:sidebar widgetVar="sidebar2" position="right" baseZIndex="10000">
-            <h1 style="font-weight:normal">Administración de Cursos</h1>
-            <!--   <p:commandButton value="Cancel" oncomplete="PF('sidebar2').hide()"/>-->
-            <center>
-                <img src="img/minerva.png" width="100px" height="120px"/>
-            </center>
-            <br/><br/>
-            <p:commandButton value="Nuevo Curso" styleClass="boton_personalizado" onclick="location.href = 'creacion.jsf'"/>
-            <p:separator/>
-            <p:commandButton value="Estadisticas" class="boton_personalizado"/>
-            <p:separator/>
-            <h:form>
-                <p:commandButton value="Cerrar Sesión" class="boton_personalizado" action="#{manejadorLogin.cerrarsesion()}"/>
-            </h:form>
-        </p:sidebar>
+            <p:sidebar widgetVar="sidebar2" position="right" baseZIndex="10000">
+                <h1 style="font-weight:normal">Administración de Cursos</h1>
+                <!--   <p:commandButton value="Cancel" oncomplete="PF('sidebar2').hide()"/>-->
+                <center>
+                    <img src="img/minerva.png" width="100px" height="120px"/>
+                </center>
+                <br/><br/>
+                <p:commandButton value="Nuevo Curso" styleClass="boton_personalizado" onclick="location.href = 'creacion.jsf'"/>
+                <p:separator/>
+                <p:commandButton value="Estadisticas" class="boton_personalizado"/>
+                <p:separator/>
+                <h:form>
+                    <p:commandButton value="Cerrar Sesión" class="boton_personalizado" action="#{manejadorLogin.cerrarsesion()}"/>
+                </h:form>
+            </p:sidebar>
+        </h:form>
+        <h:form id="formulario">
+            <p:growl id="mensaje" severity="info, fatal" showSummary="true" showDetail="true"/>
 
-        <!--Formulario para la creación-->
+            <p:panelGrid id="panel" columns="3" layout="grid"  style="width: 750px; height: 250px"> 
+                <p:outputLabel for="nombreCurso"  value="Nombre" />
+                <p:inputText id="nombreCurso" value="#{manejadorCursos.curso.nombreCurso}"  required="true" requiredMessage="Nombre requeridp"/>
+                <p:message for="nombreCurso" />
 
-        <div class="contact1">
-            <div class="container-contact1">
-                <div class="contact1-pic js-tilt">
-                    <img src="img/minerva.png" alt="IMG"/>
-                </div>
+                <p:outputLabel for="descripcionCurso" value="Descripcion" />
+                <p:inputTextarea id="descripcionCurso" value="#{manejadorCursos.curso.descripcion}" required="true" requiredMessage="Descripcion requerida"/>
+                <p:message for="descripcionCurso" />
 
-                <!--<form class="contact1-form validate-form">-->
-                    <span class="contact1-form-title">
-                        Creación de Curso
-                    </span>
 
-                    <div class="wrap-input1 validate-input" data-validate = "Name is required">
-                        <p:inputText class="input1" type="text" value="#{manejadorCursos.curso.nombreCurso}" placeholder="Nombre"></p:inputText>
-                        <span class="shadow-input1"></span>
-                    </div>
+                <p:outputLabel for="fechaInicio" value="Fecha inicio" />
+                <p:calendar id="fechaInicio" value="#{manejadorCursos.curso.fechaInicio}" required="true" requiredMessage="Fecha inicio requerida"/>
+                <p:message for="fechaInicio" />
 
-                    <div class="wrap-input1 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                        <p:inputTextarea class="input1" value="#{manejadorCursos.curso.descripcion}" placeholder="Descripción del curso"></p:inputTextarea>
-                        <span class="shadow-input1"></span>
-                    </div>
 
-                    <div class="wrap-input1 validate-input" data-validate = "Message is required">
-                        <p:inputText class="input1" type="date" value="#{manejadorCursos.curso.fechaInicio}" placeholder="Fecha inicio"></p:inputText>
-                        <span class="shadow-input1"></span>
-                    </div>
+                <p:outputLabel for="fechaFin" value="Fecha fin" />
+                <p:calendar id="fechaFin" value="#{manejadorCursos.curso.fechaFin}" required="true" requiredMessage="Fecha fin requerida" />
+                <p:message for="fechaFin" />
 
-                    <div class="wrap-input1 validate-input" data-validate = "Message is required">
-                        <p:inputText class="input1" type="date" value="#{manejadorCursos.curso.fechaFin}" placeholder="Fecha fin" ></p:inputText>
-                        <span class="shadow-input1"></span>
-                    </div>
 
-                    <div class="wrap-input1 validate-input" data-validate = "Subject is required">
-                        <p:inputText class="input1" type="text" value="#{manejadorCursos.curso.cupo}" placeholder="Cupo"/>
-                        <span class="shadow-input1"></span>
-                    </div>
+                <p:outputLabel for="cupo" value="Capacidad" />
+                <p:inputText id="cupo" value="#{manejadorCursos.curso.cupo}" required="true" requiredMessage="Cupo requerido"/>
+                <p:message for="cupo" />
 
-                    <div class="wrap-input1 validate-input" data-validate = "Subject is required">
-                        <p:selectBooleanCheckbox class="input1" value="#{manejadorCursos.curso.estado}" itemLabel="Estado"></p:selectBooleanCheckbox>
-                        <span class="shadow-input1"></span>
-                    </div>
 
-                    <div class="container-contact1-form-btn">
-                        <h:form>
-                            <p:commandButton class="contact1-form-btn" action="#{manejadorCursos.crearcurso()}">
+                <p:outputLabel for="idEstado" value="Activo"/>
+                <p:selectBooleanCheckbox id="idEstado" label="activo" value="#{manejadorCursos.curso.estado}"/>
+                <p:message for="idEstado" />
 
-                                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
 
-                            </p:commandButton>
-                        </h:form>
-                    </div>
-                <!--</form>-->
-            </div>
-        </div>
+                <p:outputLabel />
+                <p:commandButton value="crear" action="#{manejadorCursos.crearcurso()}" update="mensaje, panel"/>
+            </p:panelGrid>
+        </h:form>
         <f:metadata>
             <f:viewAction action="#{manejadorLogin.loginPrincipal()}" />
         </f:metadata>
-    </h:body>
+    </body>
 </html>
 

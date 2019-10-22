@@ -23,10 +23,12 @@
             <h1 style="font-weight:normal">Administración de Cursos</h1>
             <!--   <p:commandButton value="Cancel" oncomplete="PF('sidebar2').hide()"/>-->
             <center>
-                <img src="img/minerva.png" width="100px" height="120px"/>
+                <img src="img/minerva.png" width="100px" height="120px" onclick="location.href = 'principal.jsf'"/>
             </center>
             <br/><br/>
             <p:commandButton value="Nuevo Curso" styleClass="boton_personalizado" onclick="location.href = 'creacion.jsf'"/>
+            <p:separator/>
+            <p:commandButton value="Mis cursos" class="boton_personalizado"/>
             <p:separator/>
             <p:commandButton value="Estadisticas" class="boton_personalizado"/>
             <p:separator/>
