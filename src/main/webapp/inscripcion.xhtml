@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Inscripcion</title>
+    </h:head>
+    <h:body>
+        <p:toolbar style="height: 60px ">
+            <f:facet name="left">
+                <img src="img/minerva.png" height="55px" width="40px"/>
+            </f:facet>
+            <f:facet name="right">
+                <p:commandButton value="∷" rendered="#{manejadorLogin.loginadmin()}" oncomplete="PF('sidebar2').show()" style="height: 55px; font-size: 24" />
+            </f:facet>
+        </p:toolbar>
+
+        <p:sidebar widgetVar="sidebar2" position="right" baseZIndex="10000">
+            <h1 style="font-weight:normal">Administración de Cursos</h1>
+            <!--   <p:commandButton value="Cancel" oncomplete="PF('sidebar2').hide()"/>-->
+            <center>
+                <img src="img/minerva.png" width="100px" height="120px"/>
+            </center>
+            <br/><br/>
+            <p:commandButton value="Nuevo Curso" styleClass="boton_personalizado" onclick="location.href = 'creacion.jsf'"/>
+            <p:separator/>
+            <p:commandButton value="Estadisticas" class="boton_personalizado"/>
+            <p:separator/>
+            <p:commandButton value="Cerrar Sesión" class="boton_personalizado" action="#{manejadorLogin.cerrarsesion()}"/>
+        </p:sidebar>
+
+
+        <!--Formulario para la inscripcion-->
+
+        <div class="contact1">
+            <div class="container-contact1">
+
+                <form class="contact1-form validate-form">
+                    <span class="contact1-form-title">
+                        Inscripcion de Curso
+                    </span>
+
+                    <div class="wrap-input1 validate-input" data-validate = "Name is required">
+                        <p:inputText class="input1" type="text" value="#{manejadorInscripcion.estudiante.nombreEstudiante}" placeholder="Nombre"></p:inputText>
+                        <span class="shadow-input1"></span>
+                    </div>
+
+                    <div class="wrap-input1 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                        <p:inputText class="input1" value="#{manejadorInscripcion.estudiante.apellidoEstudiante}" placeholder="Apellido"></p:inputText>
+                        <span class="shadow-input1"></span>
+                    </div>
+
+                    <div class="wrap-input1 validate-input" data-validate = "Message is required">
+                        <p:inputText class="input1" type="text" value="#{manejadorInscripcion.estudiante.carnet}" placeholder="Carnet"></p:inputText>
+                        <span class="shadow-input1"></span>
+                    </div>
+
+                    <div class="wrap-input1 validate-input" data-validate = "Message is required">
+                        <p:inputText class="input1" type="text" value="#{manejadorInscripcion.estudiante.correoEstudiante}" placeholder="Correo" ></p:inputText>
+                        <span class="shadow-input1"></span>
+                    </div>
+
+                    <div class="wrap-input1 validate-input" data-validate = "Subject is required">
+                        <p:selectBooleanCheckbox class="input1" itemLabel="Sexo"></p:selectBooleanCheckbox>
+                        <span class="shadow-input1"></span>
+                    </div>
+
+                    <div>
+                        <p:selectOneMenu id="idDepartamento" value="#{manejadorInscripcion.idDepartamento}" required="true">
+                            <f:selectItem itemLabel="Seleccione Departamento" noSelectionOption="true" itemDisabled="false" />
+                            <f:selectItems value="#{manejadorInscripcion.llenarDepartamentos()}" var="valor" itemValue="#{valor.idDepartamento}" itemLabel="#{valor.nombreDepartamento}">
+                            </f:selectItems>
+                        </p:selectOneMenu>
+                    </div>
+                    <div>
+                        <p:selectOneMenu id="idCarrera" value="#{manejadorInscripcion.idDepartamento}" required="true">
+                            <f:selectItem itemLabel="Seleccione Departamento" noSelectionOption="true" itemDisabled="false" />
+                            <f:selectItems value="#{manejadorInscripcion.llenarCarreras(idDepartamento)}" var="valor" itemValue="#{valor.idCarrera}" itemLabel="#{valor.nombreCarrera}">
+                            </f:selectItems>
+                        </p:selectOneMenu>
+                    </div>
+
+                    <div class="container-contact1-form-btn">
+                        <p:commandButton class="contact1-form-btn" >
+
+                            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+
+                        </p:commandButton>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </h:body>
+</html>
+

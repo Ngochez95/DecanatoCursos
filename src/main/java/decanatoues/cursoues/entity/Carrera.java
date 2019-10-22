@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Carrera.findAll", query = "SELECT c FROM Carrera c")
     , @NamedQuery(name = "Carrera.findByIdCarrera", query = "SELECT c FROM Carrera c WHERE c.idCarrera = :idCarrera")
     , @NamedQuery(name = "Carrera.findByNombreCarrera", query = "SELECT c FROM Carrera c WHERE c.nombreCarrera = :nombreCarrera")
+    , @NamedQuery(name = "Carrera.findByIdDepartamento", query = "SELECT c FROM Carrera AS c WHERE c.idDepartamentoFk.idDepartamento= :idDepartamento")
     , @NamedQuery(name = "Carrera.findByCodigoCarrera", query = "SELECT c FROM Carrera c WHERE c.codigoCarrera = :codigoCarrera")})
 public class Carrera implements Serializable {
 
@@ -139,5 +140,5 @@ public class Carrera implements Serializable {
     public String toString() {
         return "decanatoues.cursoues.entity.Carrera[ idCarrera=" + idCarrera + " ]";
     }
-    
+
 }
