@@ -49,42 +49,41 @@
                     </span>
 
                     <div class="wrap-input1 validate-input" data-validate = "Name is required">
-                        <input class="input1" type="text" name="name" placeholder="Nombre"/>
+                        <p:inputText class="input1" type="text" value="#{manejadorCursos.curso.nombreCurso}" placeholder="Nombre"></p:inputText>
                         <span class="shadow-input1"></span>
                     </div>
 
                     <div class="wrap-input1 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                        <p:inputTextarea class="input1"  placeholder="Descripción del curso"></p:inputTextarea>
+                        <p:inputTextarea class="input1" value="#{manejadorCursos.curso.descripcion}" placeholder="Descripción del curso"></p:inputTextarea>
                         <span class="shadow-input1"></span>
                     </div>
 
                     <div class="wrap-input1 validate-input" data-validate = "Message is required">
-                        <p:inputMask class="input1"  placeholder="Fecha inicio" mask="99/99/9999"></p:inputMask>
+                        <p:inputText class="input1" type="date" value="#{manejadorCursos.curso.fechaInicio}" placeholder="Fecha inicio"></p:inputText>
                         <span class="shadow-input1"></span>
                     </div>
 
                     <div class="wrap-input1 validate-input" data-validate = "Message is required">
-                        <p:inputMask class="input1"  placeholder="Fecha fin" mask="99/99/9999"></p:inputMask>
+                        <p:inputText class="input1" type="date" value="#{manejadorCursos.curso.fechaFin}" placeholder="Fecha fin" ></p:inputText>
                         <span class="shadow-input1"></span>
                     </div>
 
                     <div class="wrap-input1 validate-input" data-validate = "Subject is required">
-                        <p:inputText class="input1" type="text"  placeholder="Cupo"/>
+                        <p:inputText class="input1" type="text" value="#{manejadorCursos.curso.cupo}" placeholder="Cupo"/>
                         <span class="shadow-input1"></span>
                     </div>
 
                     <div class="wrap-input1 validate-input" data-validate = "Subject is required">
-                        <p:selectBooleanCheckbox class="input1" itemLabel="Estado"></p:selectBooleanCheckbox>
+                        <p:selectBooleanCheckbox class="input1" value="#{manejadorCursos.curso.estado}" itemLabel="Estado"></p:selectBooleanCheckbox>
                         <span class="shadow-input1"></span>
                     </div>
 
                     <div class="container-contact1-form-btn">
-                        <button class="contact1-form-btn">
-                            <span>
-                                Crear
-                                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                            </span>
-                        </button>
+                        <p:commandButton class="contact1-form-btn" action="#{manejadorCursos.crearcurso()}">
+                         
+                            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+
+                        </p:commandButton>
                     </div>
                 </form>
             </div>
