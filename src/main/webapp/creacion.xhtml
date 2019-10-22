@@ -32,7 +32,9 @@
             <p:separator/>
             <p:commandButton value="Estadisticas" class="boton_personalizado"/>
             <p:separator/>
-            <p:commandButton value="Cerrar Sesión" class="boton_personalizado" action="#{manejadorLogin.cerrarsesion()}"/>
+            <h:form>
+                <p:commandButton value="Cerrar Sesión" class="boton_personalizado" action="#{manejadorLogin.cerrarsesion()}"/>
+            </h:form>
         </p:sidebar>
 
         <!--Formulario para la creación-->
@@ -43,7 +45,7 @@
                     <img src="img/minerva.png" alt="IMG"/>
                 </div>
 
-                <form class="contact1-form validate-form">
+                <!--<form class="contact1-form validate-form">-->
                     <span class="contact1-form-title">
                         Creación de Curso
                     </span>
@@ -79,17 +81,20 @@
                     </div>
 
                     <div class="container-contact1-form-btn">
-                        <p:commandButton class="contact1-form-btn" action="#{manejadorCursos.crearcurso()}">
-                         
-                            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                        <h:form>
+                            <p:commandButton class="contact1-form-btn" action="#{manejadorCursos.crearcurso()}">
 
-                        </p:commandButton>
+                                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+
+                            </p:commandButton>
+                        </h:form>
                     </div>
-                </form>
+                <!--</form>-->
             </div>
         </div>
-
-
+        <f:metadata>
+            <f:viewAction action="#{manejadorLogin.loginPrincipal()}" />
+        </f:metadata>
     </h:body>
 </html>
 

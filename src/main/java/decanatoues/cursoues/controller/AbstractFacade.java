@@ -61,4 +61,31 @@ public abstract class AbstractFacade<T> {
         return ((Long) q.getSingleResult()).intValue();
     }
     
+    public boolean crear(T entity) {
+        try {
+            getEntityManager().persist(entity);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean editar(T entity) {
+        try {
+            getEntityManager().merge(entity);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean Eliminar(T entity) {
+        try {
+            getEntityManager().remove(getEntityManager().merge(entity));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
 }

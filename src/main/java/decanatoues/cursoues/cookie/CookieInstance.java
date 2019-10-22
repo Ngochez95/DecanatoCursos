@@ -94,7 +94,7 @@ public class CookieInstance {
                         break;
                     }
                 }
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/index.jsf");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("index.jsf");
             }
         } catch (IOException ex) {
             Logger.getLogger(CookieInstance.class.getName()).log(Level.SEVERE, null, ex);
