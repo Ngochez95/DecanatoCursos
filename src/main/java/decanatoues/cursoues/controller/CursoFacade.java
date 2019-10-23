@@ -33,6 +33,7 @@ public class CursoFacade extends AbstractFacade<Curso> {
         super(Curso.class);
     }
 
+
     public List<Curso> findActivo() {
         try {
             Query consulta = em.createNamedQuery("Curso.findByEstado");
@@ -45,6 +46,20 @@ public class CursoFacade extends AbstractFacade<Curso> {
             throw ex;
         }
         return cursos;
+    }
+
+    public Curso findByIdCurso(int id) {
+        Curso cursoSeleccionado = null;
+        try {
+            //invocar a la consulta para poder buscar el objeto por su id
+            Query query = em.createNamedQuery("Curso.findByIdCurso");
+            query.setParameter("idCurso", id);
+            List<Curso> cursos = query.getResultList();
+            cursoSeleccionado = cursos.get(0);
+        } catch (Exception e) {
+        }
+        return cursoSeleccionado;
+
     }
 
 }
