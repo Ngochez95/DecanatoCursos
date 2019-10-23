@@ -46,6 +46,57 @@
                 <p:commandButton value="NO" onclick="PF('dlg3').hide();$('#form').trigger('reset');" type="button"/>
             </center>
         </p:dialog>
+        <style type="text/css">
+            .value {
+                font-weight: bold;
+            }
+        </style>
+        <h:form id="cursosActivos">
+            <p:dataGrid var="cursos" value="#{manejadorCursos.listaCursos}" columns="3" layout="grid"
+                        rows="12" paginator="true" id="idcursos"
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="6,12,16">
+                <f:facet name="header">
+                    Cursos Decanato UESFMOcc
+                </f:facet>
+
+                <p:panel header="#{cursos.nombreCurso}" style="text-align:center">
+                    <h:panelGrid columns="1" style="width:100%">
+
+                        <h:outputText value="#{cursos.descripcion}" />
+                        <h:outputText value="#{cursos.cupo}" />
+
+
+                        <p:commandLink update=":cursosActivos:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">
+                            <h:outputText value="VER" style="margin:0 auto;"/>
+                            <f:setPropertyActionListener value="#{cursos}" target="#{manejadorCursos.curso}" />
+                        </p:commandLink>
+                    </h:panelGrid>
+                </p:panel>
+
+            </p:dataGrid>
+            <p:dialog header="Info Cursos" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="carDetail" style="text-align:center;">
+                    <p:panelGrid  columns="2" rendered="#{not empty manejadorCursos.curso}" columnClasses="label,value">
+
+                        <h:outputText value="Nombre:" />
+                        <h:outputText value="#{manejadorCursos.curso.nombreCurso}" />
+
+                        <h:outputText value="Descripción:" />
+                        <h:outputText value="#{manejadorCursos.curso.descripcion}" />
+
+                        <h:outputText value="Cupo:" />
+                        <h:outputText value="#{manejadorCursos.curso.cupo}" />
+
+                        <h:outputText value="Inicia" />
+                        <h:outputText value="#{manejadorCursos.curso.fechaInicio.day+21}/#{manejadorCursos.curso.fechaInicio.month+1}/#{manejadorCursos.curso.fechaInicio.year+1900}" />
+
+                        <h:outputText value="Finaliza" />
+                        <h:outputText value="#{manejadorCursos.curso.fechaFin.day+21}/#{manejadorCursos.curso.fechaFin.month+1}/#{manejadorCursos.curso.fechaFin.year+1900}"/>
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
     </h:body>
 </html>
 
