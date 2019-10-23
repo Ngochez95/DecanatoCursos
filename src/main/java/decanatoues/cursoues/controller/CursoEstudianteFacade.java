@@ -5,10 +5,13 @@
  */
 package decanatoues.cursoues.controller;
 
+import decanatoues.cursoues.entity.Curso;
 import decanatoues.cursoues.entity.CursoEstudiante;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +31,5 @@ public class CursoEstudianteFacade extends AbstractFacade<CursoEstudiante> {
     public CursoEstudianteFacade() {
         super(CursoEstudiante.class);
     }
-    
+
 }
