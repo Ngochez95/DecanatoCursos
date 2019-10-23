@@ -44,6 +44,26 @@ public class ManejadorCursos implements Serializable {
 
     }
 
+    //archivar los cursos que sean seleccionados 
+    public void archivarCurso() {
+        int CursoSeleccionado = 0;
+        //control de exito al momento de archivar el curso
+        boolean exito;
+        Curso cursoArchivar = cursofd.findByIdCurso(CursoSeleccionado);
+        if (cursoArchivar != null) {
+            cursoArchivar.setEstado(false);
+            //usa modificar para realizar un eliminado suave
+            exito = cursofd.editar(curso);
+            if (exito==true) {
+                System.out.println("Archivado con exito");
+            } else {
+                System.out.println("Fallo al achivar");
+            }
+        } else {
+            System.out.println("Curso No encontrado");
+        }
+    }
+
     public Curso getCurso() {
         return curso;
     }
