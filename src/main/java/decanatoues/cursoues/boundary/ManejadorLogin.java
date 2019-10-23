@@ -51,7 +51,7 @@ public class ManejadorLogin implements Serializable {
                 System.out.println(admin.getContrasenia() + admin.getNombreUsuario());
                 render = true;
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "aviso:", "usuario o contraseña incorrectos"));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Usuario o Contraseña son incorrectos", ""));
             }
 
         } catch (Exception ex) {
