@@ -5,10 +5,13 @@
  */
 package decanatoues.cursoues.boundary;
 
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import decanatoues.cursoues.controller.CursoFacade;
 import decanatoues.cursoues.entity.Curso;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
+import javafx.scene.chart.PieChart;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -32,6 +35,7 @@ public class ManejadorCursos implements Serializable {
     private Curso curso;
     private Curso cursoseleccionado;
     private List<Curso> listaCursos;
+    private Date fechaInicio, fechaFinal;
 
     public ManejadorCursos() {
         this.curso = new Curso();
@@ -46,21 +50,34 @@ public class ManejadorCursos implements Serializable {
 
     public void crearcurso() {
         try {
+            boolean exito, exitoCreacion;
             System.out.println("entro al métodoOOOOOOOOO");
             this.curso.setCodigoCurso("cursoUes1");
-            cursofd.create(curso);
-            curso.setNombreCurso("");
-            curso.setFechaInicio(null);
-            curso.setFechaFin(null);
-            curso.setDescripcion("");
-            curso.setCupo(0);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Registro con exito"));
+            //validar fecha 
+            fechaInicio = curso.getFechaInicio();
+            exito = fechaInicio.before(curso.getFechaFin());
+            if (exito == true) {
+                exitoCreacion = cursofd.crear(curso);
+                if (exitoCreacion == true) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Registro con exito"));
+                       //reset los componentes
+                    curso.setNombreCurso("");
+                    curso.setFechaInicio(null);
+                    curso.setFechaFin(null);
+                    curso.setDescripcion("");
+                    curso.setCupo(0);
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Registo a fallado"));
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Fechas incorrectas"));
+            }
         } catch (Exception ex) {
         }
 
     }
-    
-        public void editarcurso() {
+
+    public void editarcurso() {
         try {
             System.out.println("entro al métodoOOOOOOOOO");
             cursofd.edit(curso);
@@ -71,11 +88,12 @@ public class ManejadorCursos implements Serializable {
 
     }
 
-     public void onRowSelect(SelectEvent event) {
+    public void onRowSelect(SelectEvent event) {
         FacesMessage msg = new FacesMessage("Car Selected", ((Curso) event.getObject()).getIdCurso().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-     public void onRowCancel(RowEditEvent event) {
+
+    public void onRowCancel(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Edit Cancelled", ((Curso) event.getObject()).getIdCurso().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
@@ -90,7 +108,7 @@ public class ManejadorCursos implements Serializable {
             cursoArchivar.setEstado(false);
             //usa modificar para realizar un eliminado suave
             exito = cursofd.editar(curso);
-            if (exito==true) {
+            if (exito == true) {
                 System.out.println("Archivado con exito");
             } else {
                 System.out.println("Fallo al achivar");

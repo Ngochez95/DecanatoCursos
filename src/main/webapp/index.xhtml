@@ -9,13 +9,12 @@
         <meta charset="utf-8"/>
         <title>AUTENTIFICACION</title>
         <link rel="stylesheet" href="resources/css/style.css"/>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>-->
     </h:head>
     <body background="img/fondo1_1.png">
-        <p:messages autoUpdate="true" showDetail="true"/>
-
+       
         <h:form  class="login-form">
-            <p:growl id="growl" showDetail="false" sticky="true" />
+            <p:growl id="growl" showDetail="false"  />
             <div style="position: relative; left: 40%">
                 <img src="img/minerva.png" width="100px" height="120px"/>
             </div>
@@ -30,7 +29,7 @@
             </div>
             <p:commandButton class="btnlog" value="Ingresar" action="#{manejadorLogin.autenticacion()}" update="@form" />
         </h:form>
-        <script type="text/javascript">
+        <!--<script type="text/javascript">
             $(".txt input").on("focus", function () {
             $(this).addClass("focus");
             });
@@ -39,7 +38,7 @@
             if ($(this).val() == "")
             $(this).removeClass("focus");
             });
-        </script>
+        </script>-->
         <f:metadata>
             <f:viewAction action="#{manejadorLogin.login()}" />
         </f:metadata>
