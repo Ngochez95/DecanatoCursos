@@ -49,11 +49,12 @@
             </p:dialog>
         </h:form>
         <h:form id="form">
+            <p:growl id="mensaje" severity="info, fatal" showSummary="true" showDetail="true"/>
             <p:growl id="msgs" showDetail="true"/>    
             <p:dataTable var="cursoActivos" value="#{manejadorCursos.listaCursos}" paginator="true" rows="10"
                          paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                          rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{manejadorCursos.curso}" id="idCursoSelected" lazy="true" rowKey="#{cursoActivos.idCurso}">
-                <p:ajax event="rowSelect" listener="#{manejadorCursos.onRowSelect}" update=":form:carDetail" oncomplete="PF('carCursos').show()" />
+                <p:ajax event="rowSelect" listener="#{manejadorCursos.onRowSelect}" update=":form:carDetail" />
                 <f:facet name="header">
                     Cursos UESFMOcc
                 </f:facet>
@@ -70,23 +71,56 @@
                     <h:outputText value="#{cursoActivos.estado}" />
                 </p:column>
             </p:dataTable>
+            <p:contextMenu for="idCursoSelected">
+                <p:menuitem value="Modificar" update="carDetail" oncomplete="PF('carCursos').show()"/>
+                <p:menuitem value="Archivar" update="carArchivar" oncomplete="PF('carArchivar').show()"/>
+            </p:contextMenu>
 
             <p:dialog header="Car Detail" widgetVar="carCursos" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                 <p:outputPanel id="carDetail" style="text-align:center; border: none">
+                    <p:panelGrid id="panel" columns="3" layout="grid"  style="width: 750px; height: 250px"> 
+                        <p:outputLabel for="nombreCurso"  value="Nombre" />
+                        <p:inputText id="nombreCurso" value="#{manejadorCursos.curso.nombreCurso}"  required="true" requiredMessage="Nombre requeridp"/>
+                        <p:message for="nombreCurso" />
+
+                        <p:outputLabel for="descripcionCurso" value="Descripcion" />
+                        <p:inputTextarea id="descripcionCurso" value="#{manejadorCursos.curso.descripcion}" required="true" requiredMessage="Descripcion requerida"/>
+                        <p:message for="descripcionCurso" />
+
+
+                        <p:outputLabel for="fechaInicio" value="Fecha inicio" />
+                        <p:calendar id="fechaInicio" value="#{manejadorCursos.curso.fechaInicio}" required="true" requiredMessage="Fecha inicio requerida"/>
+                        <p:message for="fechaInicio" />
+
+
+                        <p:outputLabel for="fechaFin" value="Fecha fin" />
+                        <p:calendar id="fechaFin" value="#{manejadorCursos.curso.fechaFin}" required="true" requiredMessage="Fecha fin requerida" />
+                        <p:message for="fechaFin" />
+
+
+                        <p:outputLabel for="cupo" value="Capacidad" />
+                        <p:inputText id="cupo" value="#{manejadorCursos.curso.cupo}" required="true" requiredMessage="Cupo requerido"/>
+                        <p:message for="cupo" />
+
+
+                        <p:outputLabel for="idEstado" value="Activo"/>
+                        <p:selectBooleanCheckbox id="idEstado" label="activo" value="#{manejadorCursos.curso.estado}"/>
+                        <p:message for="idEstado" />
+
+
+                        <p:outputLabel />
+                        <p:commandButton value="Editar" action="#{manejadorCursos.editarcurso()}" update="mensaje, panel"/>
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+            <p:dialog header="Car Detail" widgetVar="carArchivar" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="carArchivar" style="text-align:center; border: none">
                     <p:panelGrid  columns="2" rendered="#{not empty manejadorCursos.curso}" columnClasses="label,value">
-
-
-                        <h:outputText value="Id:" />
-                        <p:outputLabel value="#{manejadorCursos.curso.idCurso}" />
-
-                        <h:outputText value="Descripción" />
-                        <p:inputTextarea value="#{manejadorCursos.curso.descripcion}" />
-
-                        <h:outputText value="Estado" />
-                        <p:selectBooleanCheckbox id="idEstado" label="activo" value="#{manejadorCursos.curso.estado}" style="color:#{dtLazyView.selectedCar.color}"/>
-
-                        <h:outputText />
-                        <p:commandButton value="editar" action="#{manejadorCursos.editarcurso()}" update="form" oncomplete="PF('carCursos').hide()"/>
+                        <f:facet name="header">
+                            <p:outputLabel value="¿Desea archivar Curso #{manejadorCursos.curso.nombreCurso} ?" />
+                        </f:facet>
+                        <p:commandButton value="SI" action="#{manejadorCursos.archivarCurso()}" update="mensaje, panel"/>
+                        <p:commandButton value="NO"/>
                     </p:panelGrid>
                 </p:outputPanel>
             </p:dialog>
