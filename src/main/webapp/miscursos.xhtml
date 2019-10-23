@@ -67,9 +67,7 @@
                 <p:column headerText="descripcion" >
                     <h:outputText value="#{cursoActivos.descripcion}" />
                 </p:column>
-                <p:column headerText="estado" >
-                    <h:outputText value="#{cursoActivos.estado}" />
-                </p:column>
+              
             </p:dataTable>
             <p:contextMenu for="idCursoSelected">
                 <p:menuitem value="Modificar" update="carDetail" oncomplete="PF('carCursos').show()"/>
@@ -102,14 +100,8 @@
                         <p:inputText id="cupo" value="#{manejadorCursos.curso.cupo}" required="true" requiredMessage="Cupo requerido"/>
                         <p:message for="cupo" />
 
-
-                        <p:outputLabel for="idEstado" value="Activo"/>
-                        <p:selectBooleanCheckbox id="idEstado" label="activo" value="#{manejadorCursos.curso.estado}"/>
-                        <p:message for="idEstado" />
-
-
                         <p:outputLabel />
-                        <p:commandButton value="Editar" action="#{manejadorCursos.editarcurso()}" update="mensaje, panel"/>
+                        <p:commandButton value="Editar" action="#{manejadorCursos.editarcurso()}" update="mensaje, panel, form, idCursoSelected"/>
                     </p:panelGrid>
                 </p:outputPanel>
             </p:dialog>
@@ -119,12 +111,15 @@
                         <f:facet name="header">
                             <p:outputLabel value="¿Desea archivar Curso #{manejadorCursos.curso.nombreCurso} ?" />
                         </f:facet>
-                        <p:commandButton value="SI" action="#{manejadorCursos.archivarCurso()}" update="mensaje, panel"/>
-                        <p:commandButton value="NO"/>
+                        <p:commandButton value="SI" action="#{manejadorCursos.archivarCurso()}" update="mensaje, panel,idCursoSelected"/>
+                        <p:commandButton value="NO" oncomplete="PF('carArchivar').hide()" />
                     </p:panelGrid>
                 </p:outputPanel>
             </p:dialog>
         </h:form>
+         <f:metadata>
+            <f:viewAction action="#{manejadorLogin.loginPrincipal()}" />
+        </f:metadata>
     </h:body>
 </html>
 

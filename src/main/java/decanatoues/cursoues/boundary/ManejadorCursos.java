@@ -57,10 +57,11 @@ public class ManejadorCursos implements Serializable {
             fechaInicio = curso.getFechaInicio();
             exito = fechaInicio.before(curso.getFechaFin());
             if (exito == true) {
+                curso.setEstado(true);
                 exitoCreacion = cursofd.crear(curso);
                 if (exitoCreacion == true) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Registro con exito"));
-                       //reset los componentes
+                    //reset los componentes
                     curso.setNombreCurso("");
                     curso.setFechaInicio(null);
                     curso.setFechaFin(null);
@@ -79,10 +80,21 @@ public class ManejadorCursos implements Serializable {
 
     public void editarcurso() {
         try {
+            boolean exito, exitoModificacion;
+            fechaInicio = curso.getFechaInicio();
+            exito = fechaInicio.before(curso.getFechaFin());
+            if (exito == true) {
+                exitoModificacion = cursofd.editar(curso);
+                if (exitoModificacion == true) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Edición con exito"));
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Fallo al Editar"));
+                }
+            } else {
+              FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Fechas incorrectas"));
+            }
             System.out.println("entro al métodoOOOOOOOOO");
-            cursofd.edit(curso);
 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Edición con exito"));
         } catch (Exception ex) {
         }
 

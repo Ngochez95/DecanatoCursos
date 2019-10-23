@@ -64,13 +64,6 @@
                 <p:outputLabel for="cupo" value="Capacidad" />
                 <p:inputText id="cupo" value="#{manejadorCursos.curso.cupo}" required="true" requiredMessage="Cupo requerido"/>
                 <p:message for="cupo" />
-
-
-                <p:outputLabel for="idEstado" value="Activo"/>
-                <p:selectBooleanCheckbox id="idEstado" label="activo" value="#{manejadorCursos.curso.estado}"/>
-                <p:message for="idEstado" />
-
-
                 <p:outputLabel />
                 <p:commandButton value="crear" action="#{manejadorCursos.crearcurso()}" update="mensaje, panel"/>
             </p:panelGrid>
