@@ -5,12 +5,12 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Principal</title>
     </h:head>
     <h:body>
         <p:toolbar style="height: 60px ">
             <f:facet name="left">
-                <img src="img/minerva.png" height="55px" width="40px"/>
+                <img src="img/minerva.png" height="55px" width="40px" onclick="location.href = 'principal.jsf'"/>
             </f:facet>
             <f:facet name="right">
                 <p:commandButton value="∷" rendered="#{manejadorLogin.loginadmin()}" oncomplete="PF('sidebar2').show()" style="height: 55px; font-size: 24" />

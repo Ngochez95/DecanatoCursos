@@ -11,7 +11,7 @@
         <h:form>
             <p:toolbar style="height: 60px ">
                 <f:facet name="left">
-                    <img src="img/minerva.png" height="55px" width="40px"/>
+                    <img src="img/minerva.png" height="55px" width="40px" onclick="location.href = 'principal.jsf'"/>
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton value="∷" rendered="#{manejadorLogin.loginadmin()}" oncomplete="PF('sidebar2').show()" style="height: 55px; font-size: 24" />
@@ -63,9 +63,9 @@
                 <p:menuitem value="Archivar" update="carArchivar" oncomplete="PF('carArchivar').show()"/>
             </p:contextMenu>
 
-            <p:dialog header="Car Detail" widgetVar="carCursos" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+            <p:dialog header="Detalle curso seleccionado" widgetVar="carCursos" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                 <p:outputPanel id="carDetail" style="text-align:center; border: none">
-                    <p:panelGrid id="panel" columns="3" layout="grid"  style="width: 750px; height: 250px"> 
+                    <p:panelGrid id="panel" columns="3" layout="grid"  style="width: 775px; height: 300px"> 
                         <p:outputLabel for="nombreCurso"  value="Nombre" />
                         <p:inputText id="nombreCurso" value="#{manejadorCursos.curso.nombreCurso}"  required="true" requiredMessage="Nombre requeridp"/>
                         <p:message for="nombreCurso" />
@@ -100,7 +100,7 @@
                         <f:facet name="header">
                             <p:outputLabel value="¿Desea archivar Curso #{manejadorCursos.curso.nombreCurso} ?" />
                         </f:facet>
-                        <p:commandButton value="SI" action="#{manejadorCursos.archivarCurso()}" update="mensaje, panel,idCursoSelected"/>
+                        <p:commandButton value="SI" action="#{manejadorCursos.archivarCurso()}" update="mensaje, panel,form,idCursoSelected"/>
                         <p:commandButton value="NO" oncomplete="PF('carArchivar').hide()" />
                     </p:panelGrid>
                 </p:outputPanel>

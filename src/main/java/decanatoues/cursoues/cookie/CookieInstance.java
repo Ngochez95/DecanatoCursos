@@ -59,9 +59,12 @@ public class CookieInstance {
         }
         if (control == true) {
             galleta.setValue(directory.getIdAdministrador().toString());
+            galleta.setMaxAge(360000000);
         } else {
             galleta = new Cookie(user, directory.getIdAdministrador().toString());
             galleta.setPath(request.getContextPath());
+            galleta.setMaxAge(360000000);
+
         }
         response.addCookie(galleta);
     }
@@ -129,10 +132,5 @@ public class CookieInstance {
     public void setDirectorio(Administrador directorio) {
         this.directorio = directorio;
     }
-
-
-    
-
-  
 
 }
