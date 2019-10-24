@@ -15,7 +15,7 @@
         <h:form>
             <p:toolbar style="height: 60px ">
                 <f:facet name="left">
-                    <img src="img/minerva.png" height="55px" width="40px"/>
+                    <img src="img/minerva.png" height="55px" width="40px" onclick="location.href = 'principal.jsf'"/>
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton value="∷" rendered="#{manejadorLogin.loginadmin()}" oncomplete="PF('sidebar2').show()" style="height: 55px; font-size: 24" />
@@ -68,7 +68,7 @@
 
 
                         <p:outputLabel for="cupo" value="Capacidad" />
-                        <h:inputText id="cupo" value="#{manejadorCursos.curso.cupo}" required="true" requiredMessage="Cupo requerido"  />
+                        <h:inputText id="cupo" value="#{manejadorCursos.curso.cupo}" required="true" requiredMessage="Cupo requerido" style="border:8px"  />
                         <p:message for="cupo" />
                         <p:outputLabel />
                         <p:commandButton value="crear" action="#{manejadorCursos.crearcurso()}" update="mensaje, panel"/>
