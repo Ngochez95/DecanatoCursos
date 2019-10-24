@@ -85,7 +85,7 @@ public class ManejadorCursos implements Serializable {
             exito = fechaInicio.before(curso.getFechaFin());
             if (exito == true) {
                 exitoModificacion = cursofd.editar(curso);
-                if (exitoModificacion == true) {
+                if (exitoModificacion == true|| fechaInicio.equals(curso.getFechaFin())) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Edición con exito"));
                 } else {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Fallo al Editar"));

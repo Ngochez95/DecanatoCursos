@@ -76,12 +76,12 @@
 
 
                         <p:outputLabel for="fechaInicio" value="Fecha inicio" />
-                        <p:calendar id="fechaInicio" value="#{manejadorCursos.curso.fechaInicio}" required="true" requiredMessage="Fecha inicio requerida"/>
+                        <p:calendar id="fechaInicio" value="#{manejadorCursos.curso.fechaInicio}" required="true" requiredMessage="Fecha inicio requerida" mask="99/99/99"/>
                         <p:message for="fechaInicio" />
 
 
                         <p:outputLabel for="fechaFin" value="Fecha fin" />
-                        <p:calendar id="fechaFin" value="#{manejadorCursos.curso.fechaFin}" required="true" requiredMessage="Fecha fin requerida" />
+                        <p:calendar id="fechaFin" value="#{manejadorCursos.curso.fechaFin}" required="true" requiredMessage="Fecha fin requerida" mask="99/99/99" />
                         <p:message for="fechaFin" />
 
 
