@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Creacuión de cursos</title>
+        <title>Creación de cursos</title>
         <link rel="stylesheet" href="resources/css/main.css"/>
         <link rel="stylesheet" href="resources/css/util.css"/>
 
@@ -22,51 +22,59 @@
                 </f:facet>
             </p:toolbar>
 
+
+
             <p:sidebar widgetVar="sidebar2" position="right" baseZIndex="10000">
                 <h1 style="font-weight:normal">Administración de Cursos</h1>
                 <!--   <p:commandButton value="Cancel" oncomplete="PF('sidebar2').hide()"/>-->
                 <center>
-                    <img src="img/minerva.png" width="100px" height="120px"/>
+                    <img src="img/minerva.png" width="100px" height="120px" onclick="location.href = 'principal.jsf'"/>
                 </center>
                 <br/><br/>
                 <p:commandButton value="Nuevo Curso" styleClass="boton_personalizado" onclick="location.href = 'creacion.jsf'"/>
                 <p:separator/>
+                <p:commandButton value="Mis cursos" class="boton_personalizado" onclick="location.href = 'miscursos.jsf'"/>
+                <p:separator/>
                 <p:commandButton value="Estadisticas" class="boton_personalizado"/>
                 <p:separator/>
-                <h:form>
-                    <p:commandButton value="Cerrar Sesión" class="boton_personalizado" action="#{manejadorLogin.cerrarsesion()}"/>
-                </h:form>
+                <p:commandButton value="Cerrar Sesión" class="boton_personalizado" action="#{manejadorLogin.cerrarsesion()}"/>
             </p:sidebar>
         </h:form>
+
         <h:form id="formulario">
-            <p:growl id="mensaje" severity="info, fatal" showSummary="true" showDetail="true"/>
+            <br/><br/><br/><br/><br/><br/><br/>
+            <center>
+                <p:growl id="mensaje" severity="info, fatal" showSummary="true" showDetail="true"/>
 
-            <p:panelGrid id="panel" columns="3" layout="grid"  style="width: 750px; height: 250px"> 
-                <p:outputLabel for="nombreCurso"  value="Nombre" />
-                <p:inputText id="nombreCurso" value="#{manejadorCursos.curso.nombreCurso}"  required="true" requiredMessage="Nombre requeridp"/>
-                <p:message for="nombreCurso" />
+                <p:panel header="Creación de cursos" style="margin-bottom:20px;width: 880px"   >
+                    <p:panelGrid id="panel" columns="3"   layout="grid"  style="width: 820px"> 
+                        <p:outputLabel for="nombreCurso"  value="Nombre" />
+                        <p:inputText id="nombreCurso" value="#{manejadorCursos.curso.nombreCurso}"  required="true" requiredMessage="Nombre requeridp" maxlength="50"/>
+                        <p:message for="nombreCurso" />
 
-                <p:outputLabel for="descripcionCurso" value="Descripcion" />
-                <p:inputTextarea id="descripcionCurso" value="#{manejadorCursos.curso.descripcion}" required="true" requiredMessage="Descripcion requerida"/>
-                <p:message for="descripcionCurso" />
-
-
-                <p:outputLabel for="fechaInicio" value="Fecha inicio" />
-                <p:calendar id="fechaInicio" value="#{manejadorCursos.curso.fechaInicio}" required="true" requiredMessage="Fecha inicio requerida"/>
-                <p:message for="fechaInicio" />
+                        <p:outputLabel for="descripcionCurso" value="Descripcion" />
+                        <p:inputTextarea id="descripcionCurso" value="#{manejadorCursos.curso.descripcion}" required="true" requiredMessage="Descripcion requerida" maxlength="300"/>
+                        <p:message for="descripcionCurso" />
 
 
-                <p:outputLabel for="fechaFin" value="Fecha fin" />
-                <p:calendar id="fechaFin" value="#{manejadorCursos.curso.fechaFin}" required="true" requiredMessage="Fecha fin requerida" />
-                <p:message for="fechaFin" />
+                        <p:outputLabel for="fechaInicio" value="Fecha inicio" />
+                        <p:calendar id="fechaInicio" value="#{manejadorCursos.curso.fechaInicio}" required="true" requiredMessage="Fecha inicio requerida"/>
+                        <p:message for="fechaInicio" />
 
 
-                <p:outputLabel for="cupo" value="Capacidad" />
-                <p:inputText id="cupo" value="#{manejadorCursos.curso.cupo}" required="true" requiredMessage="Cupo requerido"/>
-                <p:message for="cupo" />
-                <p:outputLabel />
-                <p:commandButton value="crear" action="#{manejadorCursos.crearcurso()}" update="mensaje, panel"/>
-            </p:panelGrid>
+                        <p:outputLabel for="fechaFin" value="Fecha fin" />
+                        <p:calendar id="fechaFin" value="#{manejadorCursos.curso.fechaFin}" required="true" requiredMessage="Fecha fin requerida" mask="99/99/99" />
+                        <p:message for="fechaFin" />
+
+
+                        <p:outputLabel for="cupo" value="Capacidad" />
+                        <h:inputText id="cupo" value="#{manejadorCursos.curso.cupo}" required="true" requiredMessage="Cupo requerido"  />
+                        <p:message for="cupo" />
+                        <p:outputLabel />
+                        <p:commandButton value="crear" action="#{manejadorCursos.crearcurso()}" update="mensaje, panel"/>
+                    </p:panelGrid>
+                </p:panel>
+            </center>
         </h:form>
         <f:metadata>
             <f:viewAction action="#{manejadorLogin.loginPrincipal()}" />
