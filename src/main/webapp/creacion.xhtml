@@ -41,10 +41,72 @@
             </p:sidebar>
         </h:form>
 
-        <h:form id="formulario">
-            <br/><br/><br/><br/><br/><br/><br/>
-            <center>
-                <p:growl id="mensaje" severity="info, fatal" showSummary="true" showDetail="true"/>
+
+
+
+
+        <div class="contact1">
+            <div class="container-contact1">
+                <div class="contact1-pic js-tilt" >
+                    <img src="img/minerva.png" alt="IMG"/>
+                </div>
+
+                <h:form class="contact1-form validate-form" id="panel">
+                    <p:growl id="mensaje" severity="info, fatal" showSummary="true" showDetail="true"/>
+                    <span class="contact1-form-title">
+                        Creación de cursos
+                    </span>
+
+                    <div class="wrap-input1 validate-input" data-validate = "Name is required">
+                        <p:inputText id="nombreCurso" class="input1" type="text" value="#{manejadorCursos.curso.nombreCurso}" placeholder="Name" required="true" requiredMessage="Nombre requeridp" maxlength="50"/>
+                        <p:message for="nombreCurso" />
+                        <span class="shadow-input1"></span>
+                    </div>
+
+                    <div class="wrap-input1 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                        <p:inputTextarea id="descripcionCurso" class="input1"  value="#{manejadorCursos.curso.descripcion}" placeholder="descripción" required="true" requiredMessage="Descripcion requerida" maxlength="300"/>
+                        <p:message for="descripcionCurso" />
+                        <span class="shadow-input1"></span>
+                    </div>
+
+                    <div class="wrap-input1 validate-input" data-validate = "Subject is required" >
+                        <center>
+                            <p:calendar id="fechaInicioCurso" class="input1" value="#{manejadorCursos.curso.fechaInicio}" placeholder="Fecha de Inicio" required="true" requiredMessage="Fecha Inicio requerida" mask="99/99/99"/>
+                            <p:message for="fechaInicioCurso" />
+                            <span class="shadow-input1"></span>
+                        </center>
+                    </div>
+
+                    <div class="wrap-input1 validate-input" data-validate = "Subject is required">
+                        <p:calendar id="fechaFinCurso" class="input1" value="#{manejadorCursos.curso.fechaFin}" placeholder="Fecha de Inicio" required="true" requiredMessage="Fecha fin requerida"/>
+                        <p:message for="fechaFinCurso" />
+                        <span class="shadow-input1"></span>
+                    </div>
+
+                    <div class="wrap-input1 validate-input" data-validate = "Message is required">
+                        <p:inputText id="cupoCurso" class="input1" placeholder="cupo" value="#{manejadorCursos.curso.cupo}"  required="true" requiredMessage="Cupo requerido"/>
+                        <p:message for="cupoCurso" />
+                        <span class="shadow-input1"></span>
+                    </div>
+
+                    <div class="container-contact1-form-btn">
+                        <p:commandButton class="contact1-form-btn" value="Crear" action="#{manejadorCursos.crearcurso()}" update="mensaje, panel">
+                            <span>
+
+                                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                            </span>
+                        </p:commandButton>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+
+
+    </body>
+</html>
+
+
+<!--
 
                 <p:panel header="Creación de cursos" style="margin-bottom:20px;width: 880px"   >
                     <p:panelGrid id="panel" columns="3"   layout="grid"  style="width: 820px"> 
@@ -81,4 +143,4 @@
         </f:metadata>
     </body>
 </html>
-
+-->
