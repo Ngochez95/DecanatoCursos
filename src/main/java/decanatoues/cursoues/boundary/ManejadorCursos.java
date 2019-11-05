@@ -8,12 +8,14 @@ package decanatoues.cursoues.boundary;
 import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import decanatoues.cursoues.controller.CursoFacade;
 import decanatoues.cursoues.entity.Curso;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javafx.scene.chart.PieChart;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
@@ -36,6 +38,7 @@ public class ManejadorCursos implements Serializable {
     private Curso cursoseleccionado;
     private List<Curso> listaCursos;
     private Date fechaInicio, fechaFinal;
+    ExternalContext context2 = FacesContext.getCurrentInstance().getExternalContext();
 
     public ManejadorCursos() {
         this.curso = new Curso();
@@ -51,12 +54,13 @@ public class ManejadorCursos implements Serializable {
     public void crearcurso() {
         try {
             boolean exito, exitoCreacion;
-            System.out.println("entro al métodoOOOOOOOOO");
             this.curso.setCodigoCurso("cursoUes1");
             //validar fecha 
             fechaInicio = curso.getFechaInicio();
             exito = fechaInicio.before(curso.getFechaFin());
-            if (exito == true) {
+            if (curso.getCupo() == 0) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso", "Cupo debe ser mayor a cero"));
+            }else if (exito == true) {
                 curso.setEstado(true);
                 exitoCreacion = cursofd.crear(curso);
                 if (exitoCreacion == true) {
@@ -67,6 +71,13 @@ public class ManejadorCursos implements Serializable {
                     curso.setFechaFin(null);
                     curso.setDescripcion("");
                     curso.setCupo(0);
+                     try {
+                    context2.redirect("http://localhost:8080/CursoUes-1.0-SNAPSHOT/principal.jsf");
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } 
+                    
                 } else {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Registo a fallado"));
                 }
@@ -91,7 +102,7 @@ public class ManejadorCursos implements Serializable {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Fallo al Editar"));
                 }
             } else {
-              FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Fechas incorrectas"));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Fechas incorrectas"));
             }
             System.out.println("entro al métodoOOOOOOOOO");
 
