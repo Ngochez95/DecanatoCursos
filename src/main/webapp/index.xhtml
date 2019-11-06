@@ -20,14 +20,14 @@
             </div>
             <h1>ADMINISTRADOR</h1>
             <div class="txt">
-                <p:inputText  value="#{manejadorLogin.admin.nombreUsuario}" style="border: 0" required="true" requiredMessage="Usuario: Campo obligatorio" maxlength="25"/>
+                <p:inputText id="user" value="#{manejadorLogin.admin.nombreUsuario}" style="border: 0" required="true" requiredMessage="Usuario: Campo obligatorio" maxlength="25"/>
                 <span placeholder="Usuario"></span>
             </div>
             <div class="txt">
-                <p:inputText type="password" value="#{manejadorLogin.admin.contrasenia}" style="border: 0" required="true" requiredMessage="Contraseña: campo Obligatorio" maxlength="25"/>
+                <p:inputText id="contra" type="password" value="#{manejadorLogin.admin.contrasenia}" style="border: 0" required="true" requiredMessage="Contraseña: campo Obligatorio" maxlength="25"/>
                 <span placeholder="Contraseña"></span>
             </div>
-            <p:commandButton class="btnlog" value="Ingresar" action="#{manejadorLogin.autenticacion()}" update="@form" />
+            <p:commandButton id="inicio" class="btnlog" value="Ingresar" action="#{manejadorLogin.autenticacion()}" update="@form" />
         </h:form>
         <!--<script type="text/javascript">
             $(".txt input").on("focus", function () {
