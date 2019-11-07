@@ -33,7 +33,7 @@
                 <p:separator/>
                 <p:commandButton value="Estadisticas" class="boton_personalizado"/>
                 <p:separator/>
-                    <p:commandButton value="Cerrar Sesión" class="boton_personalizado" action="#{manejadorLogin.cerrarsesion()}"/>
+                <p:commandButton value="Cerrar Sesión" class="boton_personalizado" action="#{manejadorLogin.cerrarsesion()}"/>
             </p:sidebar>
         </h:form>
 
@@ -42,12 +42,12 @@
             <p:growl id="msgs" showDetail="true"/>    
             <p:dataTable var="cursoActivos" value="#{manejadorCursos.listaCursos}" paginator="true" rows="10"
                          paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                         rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{manejadorCursos.curso}" id="idCursoSelected" lazy="true" rowKey="#{cursoActivos.idCurso}">
+                         rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{manejadorCursos.curso}" id="idCursoSelected" lazy="true" rowKey="#{cursoActivos.idCurso}" >
                 <p:ajax event="rowSelect" listener="#{manejadorCursos.onRowSelect}" update=":form:carDetail" />
                 <f:facet name="header">
                     Cursos UESFMOcc
                 </f:facet>
-                <p:column headerText="Id" >
+                <p:column headerText="Id"  >
                     <h:outputText value="#{cursoActivos.idCurso}" />
                 </p:column>
                 <p:column headerText="Nombre" >
@@ -61,6 +61,9 @@
             <p:contextMenu for="idCursoSelected">
                 <p:menuitem value="Modificar" update="carDetail" oncomplete="PF('carCursos').show()"/>
                 <p:menuitem value="Archivar" update="carArchivar" oncomplete="PF('carArchivar').show()"/>
+                <p:menuitem value="Listado de estudiantes" action="#{manejadorCursos.llenarLista()}" update="carArchivar" oncomplete="PF('estudiantesCurso').show()"/>
+
+
             </p:contextMenu>
 
             <p:dialog header="Detalle curso seleccionado" widgetVar="carCursos" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
@@ -86,7 +89,7 @@
 
 
                         <p:outputLabel for="cupo" value="Capacidad" />
-                        <p:inputText id="cupo" value="#{manejadorCursos.curso.cupo}" required="true" requiredMessage="Cupo requerido" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" maxlength="3"/>
+                        <p:inputText id="cupo" value="#{manejadorCursos.curso.cupo}" required="true" requiredMessage="Cupo requerido"  maxlength="3"/>
                         <p:message for="cupo" />
 
                         <p:outputLabel />
@@ -104,6 +107,19 @@
                         <p:commandButton value="NO" oncomplete="PF('carArchivar').hide()" />
                     </p:panelGrid>
                 </p:outputPanel>
+            </p:dialog>
+            <p:dialog header="Estudiantes del curso" widgetVar="estudiantesCurso" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:dataTable var="estudiantes" value="#{manejadorCursos.estudiantesCurso}">
+                    <p:column headerText="ID">
+                        <h:outputText value="#{estudiantes.idEstudiante}"/>
+                    </p:column>
+                    <p:column headerText="nombre">
+                        <h:outputText value="#{estudiantes.nombreEstudiante}"/>
+                    </p:column>
+                    <p:column headerText="correo">
+                        <h:outputText value="#{estudiantes.correoEstudiante}"/>
+                    </p:column>
+                </p:dataTable>
             </p:dialog>
         </h:form>
         <f:metadata>

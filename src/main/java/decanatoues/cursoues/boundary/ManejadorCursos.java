@@ -55,10 +55,11 @@ public class ManejadorCursos implements Serializable {
     private Curso curso;
     private Curso cursoseleccionado;
     private List<Curso> listaCursos;
+    private List<Estudiante> estudiantesCurso;
     private Date fechaInicio, fechaFinal;
     private CursoEstudiante cursoEstudiante;
     private Estudiante estudiante, fake;
-    private int idDepartamento = 0, idCarrera = 1;
+    private int idDepartamento = 0, idCarrera = 1, idCurso;
     private String genero = "true";
     private Carrera carrera;
     ExternalContext context2 = FacesContext.getCurrentInstance().getExternalContext();
@@ -74,6 +75,11 @@ public class ManejadorCursos implements Serializable {
     @PostConstruct
     public void init() {
         listaCursos = cursofd.findActivo();
+        estudiantesCurso = cursofd.findbyCursoEStudiante(46);
+    }
+
+    public void llenarLista() {
+        idCurso = curso.getIdCurso();
 
     }
 
@@ -238,7 +244,7 @@ public class ManejadorCursos implements Serializable {
             boolean exito;
 
             estudiante.setIdCarreraFk(cf.find(idCarrera));
-            
+
             exito = ef.crear(estudiante);
             System.out.println("entro al método para agregar");
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Estudainte agregado"));
@@ -263,14 +269,30 @@ public class ManejadorCursos implements Serializable {
         }
 
     }
-    
+
     public void buttonAction() {
         addMessage("Welcome to Primefaces!!");
     }
-    
+
     public void addMessage(String summary) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
         FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public List<Estudiante> getEstudiantesCurso() {
+        return estudiantesCurso;
+    }
+
+    public void setEstudiantesCurso(List<Estudiante> estudiantesCurso) {
+        this.estudiantesCurso = estudiantesCurso;
+    }
+
+    public int getIdCurso() {
+        return idCurso;
+    }
+
+    public void setIdCurso(int idCurso) {
+        this.idCurso = idCurso;
     }
 
 }

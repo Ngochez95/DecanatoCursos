@@ -6,6 +6,7 @@
 package decanatoues.cursoues.controller;
 
 import decanatoues.cursoues.entity.Curso;
+import decanatoues.cursoues.entity.Estudiante;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,7 +21,7 @@ import javax.persistence.Query;
 public class CursoFacade extends AbstractFacade<Curso> {
 
     List<Curso> cursos = null;
-    
+
     @PersistenceContext(unitName = "decanatoUes_CursoUes_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -32,7 +33,6 @@ public class CursoFacade extends AbstractFacade<Curso> {
     public CursoFacade() {
         super(Curso.class);
     }
-
 
     public List<Curso> findActivo() {
         try {
@@ -60,6 +60,20 @@ public class CursoFacade extends AbstractFacade<Curso> {
         }
         return cursoSeleccionado;
 
+    }
+
+    public List<Estudiante> findbyCursoEStudiante(int id) {
+        try {
+            Query query = em.createNamedQuery("Curso.findByCursoEstudiante");
+            query.setParameter("idCursoEstudiante", id);
+            List<Estudiante> CursoEstudiante = query.getResultList();
+            if (!CursoEstudiante.isEmpty()) {
+                return CursoEstudiante;
+            }
+        } catch (Exception e) {
+        }
+
+        return null;
     }
 
 }

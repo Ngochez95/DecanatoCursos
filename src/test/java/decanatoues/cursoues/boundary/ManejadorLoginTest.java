@@ -41,7 +41,7 @@ public class ManejadorLoginTest {
     public void tearDown() {
     }
 
-    @Test
+   // @Test
     public void camposVacios() throws MalformedURLException {
         System.setProperty("webdriver.chrome.driver", "./driverChrome/chromedriver");
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
@@ -55,7 +55,7 @@ public class ManejadorLoginTest {
         assertTrue(true);
     }
 
-    @Test
+    //@Test
     public void testLoginSoloUser() throws MalformedURLException {
         System.setProperty("webdriver.chrome.driver", "./driverChrome/chromedriver");
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
@@ -69,7 +69,7 @@ public class ManejadorLoginTest {
         assertTrue(true);
     }
 
-    @Test
+    //@Test
     public void testLoginSoloPaswd() throws MalformedURLException {
         System.setProperty("webdriver.chrome.driver", "./driverChrome/chromedriver");
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
@@ -84,7 +84,7 @@ public class ManejadorLoginTest {
         assertTrue(true);
     }
 
-    @Test
+    //@Test
     public void testLogin() throws MalformedURLException, InterruptedException {
         System.setProperty("webdriver.chrome.driver", "./driverChrome/chromedriver");
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();

@@ -41,6 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Curso.findByDescripcion", query = "SELECT c FROM Curso c WHERE c.descripcion = :descripcion")
     , @NamedQuery(name = "Curso.findByCupo", query = "SELECT c FROM Curso c WHERE c.cupo = :cupo")
     , @NamedQuery(name = "Curso.findByFechaInicio", query = "SELECT c FROM Curso c WHERE c.fechaInicio = :fechaInicio")
+    ,    @NamedQuery(name = "Curso.findByCursoEstudiante", query = "SELECT e from Estudiante as e join e.cursoEstudianteList as cel join cel.idCursosFk as idf where idf.idCurso= :idCursoEstudiante")
     , @NamedQuery(name = "Curso.findByFechaFin", query = "SELECT c FROM Curso c WHERE c.fechaFin = :fechaFin")})
 public class Curso implements Serializable {
 
@@ -198,5 +199,5 @@ public class Curso implements Serializable {
     public String toString() {
         return "decanatoues.cursoues.entity.Curso[ idCurso=" + idCurso + " ]";
     }
-    
+
 }
