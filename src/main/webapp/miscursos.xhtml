@@ -103,8 +103,8 @@
                         <f:facet name="header">
                             <p:outputLabel value="¿Desea archivar Curso #{manejadorCursos.curso.nombreCurso} ?" />
                         </f:facet>
-                        <p:commandButton value="SI" action="#{manejadorCursos.archivarCurso()}" update="mensaje, panel,form,idCursoSelected"/>
-                        <p:commandButton value="NO" oncomplete="PF('carArchivar').hide()" />
+                        <p:commandButton id="archivarSI" value="SI" action="#{manejadorCursos.archivarCurso()}" update="mensaje, panel,form,idCursoSelected"/>
+                        <p:commandButton id="archivarNO" value="NO" oncomplete="PF('carArchivar').hide()" />
                     </p:panelGrid>
                 </p:outputPanel>
             </p:dialog>
