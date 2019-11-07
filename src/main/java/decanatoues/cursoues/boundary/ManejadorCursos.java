@@ -5,14 +5,20 @@
  */
 package decanatoues.cursoues.boundary;
 
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
+import decanatoues.cursoues.controller.CarreraFacade;
+import decanatoues.cursoues.controller.CursoEstudianteFacade;
 import decanatoues.cursoues.controller.CursoFacade;
+import decanatoues.cursoues.controller.DepartamentoFacade;
+import decanatoues.cursoues.controller.EstudianteFacade;
+import decanatoues.cursoues.entity.Carrera;
 import decanatoues.cursoues.entity.Curso;
+import decanatoues.cursoues.entity.CursoEstudiante;
+import decanatoues.cursoues.entity.Departamento;
+import decanatoues.cursoues.entity.Estudiante;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javafx.scene.chart.PieChart;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
@@ -34,15 +40,35 @@ public class ManejadorCursos implements Serializable {
     @Inject
     private CursoFacade cursofd;
 
+    @Inject
+    private CursoEstudianteFacade cef;
+
+    @Inject
+    private EstudianteFacade ef;
+
+    @Inject
+    private DepartamentoFacade df;
+
+    @Inject
+    private CarreraFacade cf;
+
     private Curso curso;
     private Curso cursoseleccionado;
     private List<Curso> listaCursos;
     private Date fechaInicio, fechaFinal;
+    private CursoEstudiante cursoEstudiante;
+    private Estudiante estudiante, fake;
+    private int idDepartamento = 0, idCarrera = 1;
+    private String genero = "true";
+    private Carrera carrera;
     ExternalContext context2 = FacesContext.getCurrentInstance().getExternalContext();
 
     public ManejadorCursos() {
         this.curso = new Curso();
         this.cursoseleccionado = new Curso();
+        this.estudiante = new Estudiante();
+        this.fake = new Estudiante();
+        this.cursoEstudiante = new CursoEstudiante();
     }
 
     @PostConstruct
@@ -60,7 +86,7 @@ public class ManejadorCursos implements Serializable {
             exito = fechaInicio.before(curso.getFechaFin());
             if (curso.getCupo() == 0) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso", "Cupo debe ser mayor a cero"));
-            }else if (exito == true) {
+            } else if (exito == true) {
                 curso.setEstado(true);
                 exitoCreacion = cursofd.crear(curso);
                 if (exitoCreacion == true) {
@@ -71,13 +97,13 @@ public class ManejadorCursos implements Serializable {
                     curso.setFechaFin(null);
                     curso.setDescripcion("");
                     curso.setCupo(0);
-                     try {
-                    context2.redirect("http://localhost:8080/CursoUes-1.0-SNAPSHOT/principal.jsf");
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } 
-                    
+                    try {
+                        context2.redirect("http://localhost:8080/CursoUes-1.0-SNAPSHOT/principal.jsf");
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
                 } else {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Registo a fallado"));
                 }
@@ -155,6 +181,96 @@ public class ManejadorCursos implements Serializable {
 
     public void setCursoseleccionado(Curso cursoseleccionado) {
         this.cursoseleccionado = cursoseleccionado;
+    }
+
+    public Estudiante getEstudiante() {
+        return estudiante;
+    }
+
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
+    }
+
+    public Carrera getCarrera() {
+        return carrera;
+    }
+
+    public void setCarrera(Carrera carrera) {
+        this.carrera = carrera;
+    }
+
+    public int getIdDepartamento() {
+        return idDepartamento;
+    }
+
+    public void setIdDepartamento(int idDepartamento) {
+        this.idDepartamento = idDepartamento;
+    }
+
+    public int getIdCarrera() {
+        return idCarrera;
+    }
+
+    public void setIdCarrera(int idCarrera) {
+        this.idCarrera = idCarrera;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public List<Departamento> llenarDepartamentos() {
+        List<Departamento> lista = df.findAll();
+        return lista;
+    }
+
+    public List<Carrera> llenarCarreras() {
+        List<Carrera> lista = cf.findByIdDepartamento(idDepartamento);
+        return lista;
+    }
+
+    public void agregaEstudiante() {
+        try {
+            boolean exito;
+
+            estudiante.setIdCarreraFk(cf.find(idCarrera));
+            
+            exito = ef.crear(estudiante);
+            System.out.println("entro al método para agregar");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Estudainte agregado"));
+
+            if (exito == true) {
+                cursoEstudiante.setIdEstudianteFk(estudiante);
+                cursoEstudiante.setIdCursosFk(curso);
+                cursoEstudiante.setEstadoCursoEstudiante(true);
+
+                cef.crear(cursoEstudiante);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Curso Estudiante agregado"));
+                //reset los componentes
+                estudiante.setNombreEstudiante("");
+                estudiante.setApellidoEstudiante("");
+                estudiante.setCorreoEstudiante("");
+                estudiante.setCarnet("");
+                estudiante.setSexo(true);
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Registo a fallado"));
+            }
+        } catch (Exception ex) {
+        }
+
+    }
+    
+    public void buttonAction() {
+        addMessage("Welcome to Primefaces!!");
+    }
+    
+    public void addMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
 }
