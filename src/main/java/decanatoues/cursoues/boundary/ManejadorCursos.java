@@ -10,6 +10,7 @@ import decanatoues.cursoues.controller.CursoEstudianteFacade;
 import decanatoues.cursoues.controller.CursoFacade;
 import decanatoues.cursoues.controller.DepartamentoFacade;
 import decanatoues.cursoues.controller.EstudianteFacade;
+import decanatoues.cursoues.cookie.CookieInstance;
 import decanatoues.cursoues.entity.Carrera;
 import decanatoues.cursoues.entity.Curso;
 import decanatoues.cursoues.entity.CursoEstudiante;
@@ -19,6 +20,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
@@ -238,7 +241,7 @@ public class ManejadorCursos implements Serializable {
             boolean exito;
 
             estudiante.setIdCarreraFk(cf.find(idCarrera));
-            
+
             exito = ef.crear(estudiante);
             System.out.println("entro al método para agregar");
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Estudainte agregado"));
@@ -256,18 +259,26 @@ public class ManejadorCursos implements Serializable {
                 estudiante.setCorreoEstudiante("");
                 estudiante.setCarnet("");
                 estudiante.setSexo(true);
+
+                try {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("principal.jsf");
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Estudiante inscrito"));
+                } catch (IOException ex) {
+                    Logger.getLogger(CookieInstance.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Registo a fallado"));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Registo ha fallado"));
             }
         } catch (Exception ex) {
         }
 
     }
-    
+
     public void buttonAction() {
         addMessage("Welcome to Primefaces!!");
     }
-    
+
     public void addMessage(String summary) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
         FacesContext.getCurrentInstance().addMessage(null, message);
