@@ -59,8 +59,8 @@
 
             </p:dataTable>
             <p:contextMenu for="idCursoSelected">
-                <p:menuitem value="Modificar" update="carDetail" oncomplete="PF('carCursos').show()"/>
-                <p:menuitem value="Archivar" update="carArchivar" oncomplete="PF('carArchivar').show()"/>
+                <p:menuitem id="modificar" value="Modificar" update="carDetail" oncomplete="PF('carCursos').show()"/>
+                <p:menuitem id="archivar" value="Archivar" update="carArchivar" oncomplete="PF('carArchivar').show()"/>
             </p:contextMenu>
 
             <p:dialog header="Detalle curso seleccionado" widgetVar="carCursos" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
@@ -100,8 +100,8 @@
                         <f:facet name="header">
                             <p:outputLabel value="¿Desea archivar Curso #{manejadorCursos.curso.nombreCurso} ?" />
                         </f:facet>
-                        <p:commandButton value="SI" action="#{manejadorCursos.archivarCurso()}" update="mensaje, panel,form,idCursoSelected"/>
-                        <p:commandButton value="NO" oncomplete="PF('carArchivar').hide()" />
+                        <p:commandButton id="archivarSI" value="SI" action="#{manejadorCursos.archivarCurso()}" update="mensaje, panel,form,idCursoSelected"/>
+                        <p:commandButton id="archivarNO" value="NO" oncomplete="PF('carArchivar').hide()" />
                     </p:panelGrid>
                 </p:outputPanel>
             </p:dialog>

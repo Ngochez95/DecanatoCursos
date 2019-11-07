@@ -98,7 +98,7 @@ public class ManejadorCursos implements Serializable {
                     curso.setDescripcion("");
                     curso.setCupo(0);
                     try {
-                        context2.redirect("http://localhost:8080/CursoUes-1.0-SNAPSHOT/principal.jsf");
+                        FacesContext.getCurrentInstance().getExternalContext().redirect("principal.jsf");
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
