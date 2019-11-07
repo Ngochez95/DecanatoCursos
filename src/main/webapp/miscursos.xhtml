@@ -89,7 +89,7 @@
 
 
                         <p:outputLabel for="cupo" value="Capacidad" />
-                        <p:inputText id="cupo" value="#{manejadorCursos.curso.cupo}" required="true" requiredMessage="Cupo requerido"  maxlength="3"/>
+                        <p:inputNumber id="cupo" class="input1" placeholder="cupo" value="#{manejadorCursos.curso.cupo}" minValue="0" maxValue="999"  required="true" requiredMessage="Cupo requerido" />
                         <p:message for="cupo" />
 
                         <p:outputLabel />
