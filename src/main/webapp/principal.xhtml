@@ -104,22 +104,43 @@
         <h:form id="frmAdd">
             <p:growl id="mensaje" severity="info, fatal" showSummary="true" showDetail="true"/>
             <p:dialog header="Inscribirse" widgetVar="inscripcionDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                <p:outputPanel id="panelInscripcion" style="text-align:center;">
-                    <p:panelGrid  id="panel" columns="1" rendered="#{not empty manejadorCursos.curso}" columnClasses="label,value">
+                <p:outputPanel id="panelInscripcion" style="text-align:center; border: none">
+                    <p:panelGrid  id="panel" columns="1" rendered="#{not empty manejadorCursos.curso}" columnClasses="label,value" style="border: none">
 
 
-                        <p:inputText class="input1" type="text" value="#{manejadorCursos.estudiante.nombreEstudiante}" placeholder="Nombre"></p:inputText>
+                        <p:inputText id="nombre" class="input1" type="text" value="#{manejadorCursos.estudiante.nombreEstudiante}" 
+                                     placeholder="Nombre" required="true" requiredMessage="Nombre requerido" size="30" maxlength="25" 
+                                     validatorMessage="Ingrese solo letras">
+                            <f:validateRegex pattern="^[a-zA-Z\s]*$" />
+                        </p:inputText>
+                        <p:message for="nombre" />
 
-                        <p:inputText class="input1" value="#{manejadorCursos.estudiante.apellidoEstudiante}" placeholder="Apellido"></p:inputText>
+                        <p:inputText id="apellido" class="input1" value="#{manejadorCursos.estudiante.apellidoEstudiante}" 
+                                     placeholder="Apellido" required="true" requiredMessage="Apellido requerido" size="30" maxlength="25"
+                                     validatorMessage="Ingrese solo letras">
+                            <f:validateRegex pattern="^[a-zA-Z\s]*$" />
+                        </p:inputText>
+                        <p:message for="apellido" />
 
-                        <p:inputText class="input1" type="text" value="#{manejadorCursos.estudiante.carnet}" placeholder="Carnet"></p:inputText>
+                        <p:inputMask id="carnet" class="input1" type="text" value="#{manejadorCursos.estudiante.carnet}" 
+                                     placeholder="Carnet" required="true" requiredMessage="Carnet requerido" mask="aa99999"></p:inputMask>
+                        <p:message for="carnet" />
 
-                        <p:inputText class="input1" type="text" value="#{manejadorCursos.estudiante.correoEstudiante}" placeholder="Correo" ></p:inputText>
+                        <p:inputText id="email" class="input1" type="text" value="#{manejadorCursos.estudiante.correoEstudiante}" 
+                                     placeholder="Correo" required="true"
+                                     requiredMessage="Email Requerido"
+                                     validatorMessage="Formato de email incorecto"
+                                     size="30" maxlength="25">
+                            <f:validateRegex
+                                pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                        </p:inputText>
+                        <p:message for="email" />
 
-                        <p:selectOneRadio id="sexo" value="#{manejadorCursos.estudiante.sexo}" unselectable="true">
+                        <p:selectOneRadio id="sexo" value="#{manejadorCursos.estudiante.sexo}" unselectable="true" required="true" requiredMessage="Seleccione Sexo">
                             <f:selectItem itemLabel="Masculino" itemValue="#{true}" />
                             <f:selectItem itemLabel="Femenino" itemValue="#{false}" />
                         </p:selectOneRadio>
+                        <p:message for="sexo" />
 
                         <h:selectOneMenu id="idDepartamento" value="#{manejadorCursos.idDepartamento}" required="true">
                             <f:selectItem itemLabel="Seleccione Departamento" noSelectionOption="true" itemDisabled="false" />
@@ -129,17 +150,18 @@
                             <p:ajax update="idCarrera"/>
                         </h:selectOneMenu>
 
-                        <h:selectOneMenu id="idCarrera" value="#{manejadorCursos.idCarrera}" required="true">
+                        <h:selectOneMenu id="idCarrera" value="#{manejadorCursos.idCarrera}" required="true" requiredMessage="Seleccione Carrera">
                             <f:selectItem itemLabel="Seleccione Carrera" noSelectionOption="true" itemDisabled="false" />
                             <f:selectItems value="#{manejadorCursos.llenarCarreras()}" var="valor" itemValue="#{valor.idCarrera}" itemLabel="#{valor.nombreCarrera}">
                             </f:selectItems>
                         </h:selectOneMenu>
-                        
+                        <p:message for="idCarrera" />
+
                         <p:commandButton value="Inscribir" id="btnInscribir" action="#{manejadorCursos.agregaEstudiante()}"
-                                         update="panel, mensaje, frmAdd">
+                                         update="panel, mensaje">
                         </p:commandButton> 
 
-                        
+
                     </p:panelGrid>
                 </p:outputPanel>
             </p:dialog>
