@@ -71,6 +71,10 @@
                             <h:outputText value="VER" style="margin:0 auto;"/>
                             <f:setPropertyActionListener value="#{cursos}" target="#{manejadorCursos.curso}" />
                         </p:commandLink>
+                        <p:commandLink update=":frmAdd:panelInscripcion" oncomplete="PF('inscripcionDialog').show()" title="View Detail">
+                            <h:outputText value="INSCRIBIR" style="margin:0 auto;"/>
+                            <f:setPropertyActionListener value="#{cursos}" target="#{manejadorCursos.curso}" />
+                        </p:commandLink>
                     </h:panelGrid>
                 </p:panel>
 
@@ -93,6 +97,49 @@
 
                         <h:outputText value="Finaliza" />
                         <h:outputText value="#{manejadorCursos.curso.fechaFin.day+21}/#{manejadorCursos.curso.fechaFin.month+1}/#{manejadorCursos.curso.fechaFin.year+1900}"/>
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+        <h:form id="frmAdd">
+            <p:growl id="mensaje" severity="info, fatal" showSummary="true" showDetail="true"/>
+            <p:dialog header="Inscribirse" widgetVar="inscripcionDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="panelInscripcion" style="text-align:center;">
+                    <p:panelGrid  id="panel" columns="1" rendered="#{not empty manejadorCursos.curso}" columnClasses="label,value">
+
+
+                        <p:inputText class="input1" type="text" value="#{manejadorCursos.estudiante.nombreEstudiante}" placeholder="Nombre"></p:inputText>
+
+                        <p:inputText class="input1" value="#{manejadorCursos.estudiante.apellidoEstudiante}" placeholder="Apellido"></p:inputText>
+
+                        <p:inputText class="input1" type="text" value="#{manejadorCursos.estudiante.carnet}" placeholder="Carnet"></p:inputText>
+
+                        <p:inputText class="input1" type="text" value="#{manejadorCursos.estudiante.correoEstudiante}" placeholder="Correo" ></p:inputText>
+
+                        <p:selectOneRadio id="sexo" value="#{manejadorCursos.estudiante.sexo}" unselectable="true">
+                            <f:selectItem itemLabel="Masculino" itemValue="#{true}" />
+                            <f:selectItem itemLabel="Femenino" itemValue="#{false}" />
+                        </p:selectOneRadio>
+
+                        <h:selectOneMenu id="idDepartamento" value="#{manejadorCursos.idDepartamento}" required="true">
+                            <f:selectItem itemLabel="Seleccione Departamento" noSelectionOption="true" itemDisabled="false" />
+                            <f:selectItems value="#{manejadorCursos.llenarDepartamentos()}" var="valor" itemValue="#{valor.idDepartamento}" 
+                                           itemLabel="#{valor.nombreDepartamento}">
+                            </f:selectItems>
+                            <p:ajax update="idCarrera"/>
+                        </h:selectOneMenu>
+
+                        <h:selectOneMenu id="idCarrera" value="#{manejadorCursos.idCarrera}" required="true">
+                            <f:selectItem itemLabel="Seleccione Carrera" noSelectionOption="true" itemDisabled="false" />
+                            <f:selectItems value="#{manejadorCursos.llenarCarreras()}" var="valor" itemValue="#{valor.idCarrera}" itemLabel="#{valor.nombreCarrera}">
+                            </f:selectItems>
+                        </h:selectOneMenu>
+                        
+                        <p:commandButton value="Inscribir" id="btnInscribir" action="#{manejadorCursos.agregaEstudiante()}"
+                                         update="panel, mensaje, frmAdd">
+                        </p:commandButton> 
+
+                        
                     </p:panelGrid>
                 </p:outputPanel>
             </p:dialog>
