@@ -261,8 +261,9 @@ public class ManejadorCursos implements Serializable {
                 estudiante.setSexo(true);
 
                 try {
-                    FacesContext.getCurrentInstance().getExternalContext().redirect("principal.jsf");
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Estudiante inscrito"));
+
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("principal.jsf");
                 } catch (IOException ex) {
                     Logger.getLogger(CookieInstance.class.getName()).log(Level.SEVERE, null, ex);
                 }

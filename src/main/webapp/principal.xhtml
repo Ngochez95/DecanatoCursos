@@ -109,11 +109,17 @@
 
 
                         <p:inputText id="nombre" class="input1" type="text" value="#{manejadorCursos.estudiante.nombreEstudiante}" 
-                                     placeholder="Nombre" required="true" requiredMessage="Nombre requerido" size="20" maxlength="15"></p:inputText>
+                                     placeholder="Nombre" required="true" requiredMessage="Nombre requerido" size="30" maxlength="25" 
+                                     validatorMessage="Ingrese solo letras">
+                            <f:validateRegex pattern="^[a-zA-Z\s]*$" />
+                        </p:inputText>
                         <p:message for="nombre" />
 
                         <p:inputText id="apellido" class="input1" value="#{manejadorCursos.estudiante.apellidoEstudiante}" 
-                                     placeholder="Apellido" required="true" requiredMessage="Apellido requerido" size="20" maxlength="15"></p:inputText>
+                                     placeholder="Apellido" required="true" requiredMessage="Apellido requerido" size="30" maxlength="25"
+                                     validatorMessage="Ingrese solo letras">
+                            <f:validateRegex pattern="^[a-zA-Z\s]*$" />
+                        </p:inputText>
                         <p:message for="apellido" />
 
                         <p:inputMask id="carnet" class="input1" type="text" value="#{manejadorCursos.estudiante.carnet}" 
