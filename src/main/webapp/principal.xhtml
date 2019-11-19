@@ -6,34 +6,61 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Principal</title>
+        <h:outputStylesheet library="css" name="principal.css"/>
     </h:head>
-    <h:body>
-        <p:toolbar style="height: 60px ">
+    <h:body style="background-image: url(img/fondo1-1.png)">
+
+        <p:toolbar style="margin: 0px;
+                   padding: 0px;
+                   width: 100%;
+                   height: 150px;
+                   background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                   border-radius: 0px">
             <f:facet name="left">
-                <img src="img/minerva.png" height="55px" width="40px" onclick="location.href = 'principal.jsf'"/>
+                <img src="img/logoues.png" height="90px" width="200px" 
+                     style="margin-top: 25px;
+                     margin-left:50px"
+                     onclick="location.href = 'principal.jsf'"/>
             </f:facet>
             <f:facet name="right">
-                <p:commandButton value="∷" rendered="#{manejadorLogin.loginadmin()}" oncomplete="PF('sidebar2').show()" style="height: 55px; font-size: 24" />
+                <p:commandButton class="menu" value="::" 
+                                 style="margin-top: 40px; 
+                                 margin-right: 20px; 
+                                 border: 0px !important;
+                                 background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                                 color: azure" 
+                                 rendered="#{manejadorLogin.loginadmin()}" oncomplete="PF('sidebar2').show()" />
             </f:facet>
         </p:toolbar>
-
-
-
+        <!--Menu lateral superior izquierdo-->
         <p:sidebar widgetVar="sidebar2" position="right" baseZIndex="10000">
-            <h1 style="font-weight:normal">Administración de Cursos</h1>
+            <h1 style="font-weight:normal; text-align: center">Administración de Cursos</h1>
             <!--   <p:commandButton value="Cancel" oncomplete="PF('sidebar2').hide()"/>-->
             <center>
-                <img src="img/minerva.png" width="100px" height="120px" onclick="location.href = 'principal.jsf'"/>
+                <img src="img/logoues.png" width="200px" height="120px" onclick="location.href = 'principal.jsf'" style="margin: 20px"/>
             </center>
             <br/><br/>
-            <p:commandButton value="Nuevo Curso" styleClass="boton_personalizado" onclick="location.href = 'creacion.jsf'"/>
-            <p:separator/>
-            <p:commandButton value="Mis cursos" class="boton_personalizado" onclick="location.href = 'miscursos.jsf'"/>
-            <p:separator/>
-            <p:commandButton value="Estadisticas" class="boton_personalizado"/>
-            <p:separator/>
+            <p:commandButton value="Nuevo Curso" class="btnMenu" 
+                             style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                             color: azure"
+                             onclick="location.href = 'creacion.jsf'"/> <!--styleClass="boton_personalizado -->
+            <p:separator style="margin:  5px"/>
+            <p:commandButton value="Mis cursos" class="btnMenu" 
+                             style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                             color: azure"
+                             onclick="location.href = 'miscursos.jsf'"/> <!--class="boton_personalizado"-->
+            <p:separator style="margin: 5px"/>
+            <p:commandButton value="Estadisticas" 
+                             style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                             color: azure"
+                             class="btnMenu"/>
+            <p:separator style="margin: 5px"/>
             <h:form>
-                <p:commandButton value="Cerrar Sesión" class="boton_personalizado" action="#{manejadorLogin.cerrarsesion()}"/>
+                <p:commandButton value="Cerrar Sesión" 
+                                 style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857); 
+                                 color: azure"
+                                 class="btnMenu" action="#{manejadorLogin.cerrarsesion()}"/>
+                <p:separator style="margin:  5px"/>
             </h:form>   
         </p:sidebar>
 
@@ -51,37 +78,45 @@
                 font-weight: bold;
             }
         </style>
-        <h:form id="cursosActivos">
-            <p:dataGrid var="cursos" value="#{manejadorCursos.listaCursos}" columns="3" layout="grid"
-                        rows="12" paginator="true" id="idcursos"
-                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                        rowsPerPageTemplate="6,12,16">
+        <h:form id="cursosActivos" style="height: 600px">
+            <p:dataGrid  var="cursos" value="#{manejadorCursos.listaCursos}" columns="3" layout="grid"
+                         rows="12" paginator="true" id="idcursos"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="6,12,16">
                 <f:facet name="header">
-                    Cursos Decanato UESFMOcc
+                    <h1>
+                        Cursos Decanato UESFMOcc
+                    </h1>
                 </f:facet>
 
-                <p:panel header="#{cursos.nombreCurso}" style="text-align:center">
-                    <h:panelGrid columns="1" style="width:100%">
+                <p:panel header="#{cursos.nombreCurso}" style="text-align: center;
+                         align-items: center; 
+                         background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857)">
+                    <h:panelGrid columns="1" style="width:100%; height: 100%; color: azure">
 
                         <h:outputText value="#{cursos.descripcion}" />
                         <h:outputText value="#{cursos.cupo}" />
 
-
                         <p:commandLink update=":cursosActivos:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">
-                            <h:outputText value="VER" style="margin:0 auto;"/>
+                            <h:outputText value="VER" style="margin:0 auto; color: azure"/>
                             <f:setPropertyActionListener value="#{cursos}" target="#{manejadorCursos.curso}" />
                         </p:commandLink>
                         <p:commandLink update=":frmAdd:panelInscripcion" oncomplete="PF('inscripcionDialog').show()" title="View Detail">
-                            <h:outputText value="INSCRIBIR" style="margin:0 auto;"/>
+                            <h:outputText value="INSCRIBIR" style="margin:0 auto; color: azure"/>
                             <f:setPropertyActionListener value="#{cursos}" target="#{manejadorCursos.curso}" />
                         </p:commandLink>
+
                     </h:panelGrid>
                 </p:panel>
 
             </p:dataGrid>
-            <p:dialog header="Info Cursos" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                <p:outputPanel id="carDetail" style="text-align:center;">
-                    <p:panelGrid  columns="2" rendered="#{not empty manejadorCursos.curso}" columnClasses="label,value">
+            <p:dialog header="Info Cursos" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+                      style="text-align: center;
+                      background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                      color: white">
+
+                <p:outputPanel id="carDetail" >
+                    <p:panelGrid  columns="2" rendered="#{not empty manejadorCursos.curso}" columnClasses="label,value" style="text-align: center;">
 
                         <h:outputText value="Nombre:" />
                         <h:outputText value="#{manejadorCursos.curso.nombreCurso}" />
@@ -103,46 +138,47 @@
         </h:form>
         <h:form id="frmAdd">
             <p:growl id="mensaje" severity="info, fatal" showSummary="true" showDetail="true"/>
-            <p:dialog header="Inscribirse" widgetVar="inscripcionDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                <p:outputPanel id="panelInscripcion" style="text-align:center; border: none">
-                    <p:panelGrid  id="panel" columns="1" rendered="#{not empty manejadorCursos.curso}" columnClasses="label,value" style="border: none">
-
-
+            <p:dialog header="Inscribirse" widgetVar="inscripcionDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style=" border: none; 
+                               background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                               text-align: center;
+                               color: azure">
+                <p:outputPanel id="panelInscripcion" style="text-align:center">
+                    <p:panelGrid  id="panel" columns="1" rendered="#{not empty manejadorCursos.curso}" columnClasses="label,value" style="border: none; ">
                         <p:inputText id="nombre" class="input1" type="text" value="#{manejadorCursos.estudiante.nombreEstudiante}" 
                                      placeholder="Nombre" required="true" requiredMessage="Nombre requerido" size="30" maxlength="25" 
-                                     validatorMessage="Ingrese solo letras">
+                                     validatorMessage="Ingrese solo letras" style="width: 100%; ">
                             <f:validateRegex pattern="^[a-zA-Z\s]*$" />
                         </p:inputText>
                         <p:message for="nombre" />
 
                         <p:inputText id="apellido" class="input1" value="#{manejadorCursos.estudiante.apellidoEstudiante}" 
                                      placeholder="Apellido" required="true" requiredMessage="Apellido requerido" size="30" maxlength="25"
-                                     validatorMessage="Ingrese solo letras">
+                                     validatorMessage="Ingrese solo letras" style="width: 100%">
                             <f:validateRegex pattern="^[a-zA-Z\s]*$" />
                         </p:inputText>
                         <p:message for="apellido" />
 
                         <p:inputMask id="carnet" class="input1" type="text" value="#{manejadorCursos.estudiante.carnet}" 
-                                     placeholder="Carnet" required="true" requiredMessage="Carnet requerido" mask="aa99999"></p:inputMask>
+                                     placeholder="Carnet" required="true" requiredMessage="Carnet requerido" mask="aa99999" style="width: 100%"></p:inputMask>
                         <p:message for="carnet" />
 
                         <p:inputText id="email" class="input1" type="text" value="#{manejadorCursos.estudiante.correoEstudiante}" 
                                      placeholder="Correo" required="true"
                                      requiredMessage="Email Requerido"
                                      validatorMessage="Formato de email incorecto"
-                                     size="30" maxlength="25">
+                                     size="30" maxlength="25" style="width: 100%">
                             <f:validateRegex
                                 pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                         </p:inputText>
                         <p:message for="email" />
 
-                        <p:selectOneRadio id="sexo" value="#{manejadorCursos.estudiante.sexo}" unselectable="true" required="true" requiredMessage="Seleccione Sexo">
+                        <p:selectOneRadio id="sexo" value="#{manejadorCursos.estudiante.sexo}" unselectable="true" required="true" requiredMessage="Seleccione Sexo" style="align-content: center">
                             <f:selectItem itemLabel="Masculino" itemValue="#{true}" />
                             <f:selectItem itemLabel="Femenino" itemValue="#{false}" />
                         </p:selectOneRadio>
                         <p:message for="sexo" />
 
-                        <h:selectOneMenu id="idDepartamento" value="#{manejadorCursos.idDepartamento}" required="true">
+                        <h:selectOneMenu id="idDepartamento" value="#{manejadorCursos.idDepartamento}" style="width: 100%; text-align: center" required="true">
                             <f:selectItem itemLabel="Seleccione Departamento" noSelectionOption="true" itemDisabled="false" />
                             <f:selectItems value="#{manejadorCursos.llenarDepartamentos()}" var="valor" itemValue="#{valor.idDepartamento}" 
                                            itemLabel="#{valor.nombreDepartamento}">
@@ -150,14 +186,18 @@
                             <p:ajax update="idCarrera"/>
                         </h:selectOneMenu>
 
-                        <h:selectOneMenu id="idCarrera" value="#{manejadorCursos.idCarrera}" required="true" requiredMessage="Seleccione Carrera">
+                        <h:selectOneMenu id="idCarrera" value="#{manejadorCursos.idCarrera}" style="width: 100%; text-align: center" required="true" requiredMessage="Seleccione Carrera">
                             <f:selectItem itemLabel="Seleccione Carrera" noSelectionOption="true" itemDisabled="false" />
                             <f:selectItems value="#{manejadorCursos.llenarCarreras()}" var="valor" itemValue="#{valor.idCarrera}" itemLabel="#{valor.nombreCarrera}">
                             </f:selectItems>
                         </h:selectOneMenu>
                         <p:message for="idCarrera" />
 
-                        <p:commandButton value="Inscribir" id="btnInscribir" action="#{manejadorCursos.agregaEstudiante()}"
+                        <p:commandButton value="Inscribir" id="btnInscribir" style="width: 100%; 
+                                         background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857); 
+                                         color: azure; border-radius: 10px;
+                                         height: 40px"
+                                         action="#{manejadorCursos.agregaEstudiante()}"
                                          update="panel, mensaje">
                         </p:commandButton> 
 

@@ -11,21 +11,21 @@
         <link rel="stylesheet" href="resources/css/style.css"/>
         <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>-->
     </h:head>
-    <body background="img/fondo1_1.png">
+    <body background="img/fondo1-1.png">
        
         <h:form  class="login-form">
             <p:growl id="growl" showDetail="false"  />
-            <div style="position: relative; left: 40%">
-                <img src="img/minerva.png" width="100px" height="120px"/>
+            <div>
+                <img src="img/logoues.png" width="200px" height="120px" style="display: block; margin: auto"/>
             </div>
             <h1>ADMINISTRADOR</h1>
             <div class="txt">
-                <p:inputText id="user" value="#{manejadorLogin.admin.nombreUsuario}" style="border: 0" required="true" requiredMessage="Usuario: Campo obligatorio" maxlength="25"/>
-                <span placeholder="Usuario"></span>
+                <p:inputText id="user" value="#{manejadorLogin.admin.nombreUsuario}" style="border: 0" placeholder="USUARIO" required="true" requiredMessage="Usuario: Campo obligatorio" maxlength="25" />
+               <!--<span placeholder="Usuario"></span>--> 
             </div>
             <div class="txt">
-                <p:inputText id="contra" type="password" value="#{manejadorLogin.admin.contrasenia}" style="border: 0" required="true" requiredMessage="Contraseña: campo Obligatorio" maxlength="25"/>
-                <span placeholder="Contraseña"></span>
+                <p:inputText id="contra" type="password" value="#{manejadorLogin.admin.contrasenia}" style="border: 0" placeholder="CONTRASEÑA" required="true" requiredMessage="Contraseña: campo Obligatorio" maxlength="25"/>
+               <!--<span placeholder="Contraseña"></span>--> 
             </div>
             <p:commandButton id="inicio" class="btnlog" value="Ingresar" action="#{manejadorLogin.autenticacion()}" update="@form" />
         </h:form>
@@ -44,4 +44,5 @@
         </f:metadata>
     </body>
 </html>
+
 

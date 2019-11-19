@@ -8,36 +8,58 @@
         <title>Creación de cursos</title>
         <link rel="stylesheet" href="resources/css/main.css"/>
         <link rel="stylesheet" href="resources/css/util.css"/>
-
+        <link rel="stylesheet" href="resources/css/principal.css"/>
 
     </h:head>
-    <body>
+    <body style="background-image: url(img/fondo1-1.png)">
         <h:form>
-            <p:toolbar style="height: 60px ">
+            <p:toolbar style="height: 150px;
+                       height: 100%;
+                       margin: 0px;
+                       width: 100%;
+                       background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                       border-radius: 0px;
+                       ">
                 <f:facet name="left">
-                    <img src="img/minerva.png" height="55px" width="40px" onclick="location.href = 'principal.jsf'"/>
+                    <img src="img/logoues.png" height="90px" width="200px" onclick="location.href = 'principal.jsf'" 
+                         style="margin-top: 25px;
+                         margin-left: 50px"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton value="∷" rendered="#{manejadorLogin.loginadmin()}" oncomplete="PF('sidebar2').show()" style="height: 55px; font-size: 24" />
+                    <p:commandButton value="∷" class="menu" rendered="#{manejadorLogin.loginadmin()}" oncomplete="PF('sidebar2').show()" 
+                                     style="margin-top: 40px; 
+                                 margin-right: 20px; 
+                                 border: 0px !important;
+                                 background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                                 color: azure"/>
                 </f:facet>
             </p:toolbar>
 
 
 
             <p:sidebar widgetVar="sidebar2" position="right" baseZIndex="10000">
-                <h1 style="font-weight:normal">Administración de Cursos</h1>
+                <h1 style="font-weight:normal; text-align: center">Administración de Cursos</h1>
                 <!--   <p:commandButton value="Cancel" oncomplete="PF('sidebar2').hide()"/>-->
                 <center>
-                    <img src="img/minerva.png" width="100px" height="120px" onclick="location.href = 'principal.jsf'"/>
+                    <img src="img/logoues.png" width="200px" height="120px" onclick="location.href = 'principal.jsf'"/>
                 </center>
                 <br/><br/>
-                <p:commandButton value="Nuevo Curso" styleClass="boton_personalizado" onclick="location.href = 'creacion.jsf'"/>
-                <p:separator/>
-                <p:commandButton value="Mis cursos" class="boton_personalizado" onclick="location.href = 'miscursos.jsf'"/>
-                <p:separator/>
-                <p:commandButton value="Estadisticas" class="boton_personalizado"/>
-                <p:separator/>
-                <p:commandButton value="Cerrar Sesión" class="boton_personalizado" action="#{manejadorLogin.cerrarsesion()}"/>
+                <p:commandButton value="Nuevo Curso" style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                                 color: azure;
+                                 text-align: center" class="btnMenu" styleClass="btnMenu" onclick="location.href = 'creacion.jsf'"/>
+                <p:separator style="margin: 5px"/>
+                <p:commandButton value="Mis cursos" style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                                 color: azure;
+                                 text-align: center" class="btnMenu" onclick="location.href = 'miscursos.jsf'"/>
+                <p:separator style="margin: 5px"/>
+                <p:commandButton value="Estadisticas" style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                                 color: azure;
+                                 text-align: center" class="btnMenu"/>
+                <p:separator style="margin: 5px"/>
+                <p:commandButton value="Cerrar Sesión" style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                                 color: azure; 
+                                 text-align: center" class="btnMenu" action="#{manejadorLogin.cerrarsesion()}"/>
+                <p:separator style="margin: 5px"/>
             </p:sidebar>
         </h:form>
 
@@ -54,37 +76,36 @@
                 <h:form class="contact1-form validate-form" id="panel">
                     <p:growl id="mensaje" severity="info, fatal" showSummary="true" showDetail="true"/>
                     <span class="contact1-form-title">
-                        Creación de cursos
+                        <h1>Creación de cursos</h1>
                     </span>
 
                     <div class="wrap-input1 validate-input" data-validate = "Name is required">
-                        <p:inputText id="nombreCurso" class="input1" type="text" value="#{manejadorCursos.curso.nombreCurso}" placeholder="Name" required="true" requiredMessage="Nombre requeridp" maxlength="50"/>
+                        <p:inputText id="nombreCurso" class="input1" type="text" value="#{manejadorCursos.curso.nombreCurso}" placeholder="Nombre del Curso" required="true" requiredMessage="Nombre requeridp" maxlength="50"/>
                         <p:message for="nombreCurso" />
                         <span class="shadow-input1"></span>
                     </div>
 
                     <div class="wrap-input1 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                        <p:inputTextarea id="descripcionCurso" class="input1"  value="#{manejadorCursos.curso.descripcion}" placeholder="descripción" required="true" requiredMessage="Descripcion requerida" maxlength="300"/>
+                        <p:inputTextarea id="descripcionCurso" class="input1"  value="#{manejadorCursos.curso.descripcion}" placeholder="Una breve descripcion...." required="true" requiredMessage="Descripcion requerida" maxlength="300"/>
                         <p:message for="descripcionCurso" />
                         <span class="shadow-input1"></span>
                     </div>
 
-                    <div class="wrap-input1 validate-input" data-validate = "Subject is required" >
-                        <center>
+                    <div class="wrap-input1 validate-input"  data-validate = "Subject is required" >
+                        
                             <p:calendar id="fechaInicioCurso" class="input1" value="#{manejadorCursos.curso.fechaInicio}" placeholder="Fecha de Inicio" required="true" requiredMessage="Fecha Inicio requerida" mask="99/99/99"/>
                             <p:message for="fechaInicioCurso" />
                             <span class="shadow-input1"></span>
-                        </center>
                     </div>
 
                     <div class="wrap-input1 validate-input" data-validate = "Subject is required">
-                        <p:calendar id="fechaFinCurso" class="input1" value="#{manejadorCursos.curso.fechaFin}" placeholder="Fecha de Finalización" required="true" requiredMessage="Fecha fin requerida" mask="99/99/99"/>
+                        <p:calendar id="fechaFinCurso"  class="input1" value="#{manejadorCursos.curso.fechaFin}" placeholder="Fecha de Finalización" required="true" requiredMessage="Fecha fin requerida" mask="99/99/99"/>
                         <p:message for="fechaFinCurso" />
                         <span class="shadow-input1"></span>
                     </div>
 
-                    <div class="wrap-input1 validate-input" data-validate = "Message is required">
-                        <p:inputNumber id="cupoCurso" class="input1" placeholder="cupo" value="#{manejadorCursos.curso.cupo}" minValue="0" maxValue="999"  required="true" requiredMessage="Cupo requerido" />
+                    <div class="wrap-input1 validate-input"  data-validate = "Message is required">
+                        <p:inputNumber id="cupoCurso"  class="input1" placeholder="cupo" value="#{manejadorCursos.curso.cupo}" minValue="0" maxValue="999"  required="true" requiredMessage="Cupo requerido" />
                         <p:message for="cupoCurso" />
                         <span class="shadow-input1"></span>
                     </div>
