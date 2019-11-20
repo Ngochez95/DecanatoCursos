@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body style="background-image: url(img/fondo1-1.png)">
+ <p:toolbar style="margin: 0px;
+                   padding: 0px;
+                   width: 100%;
+                   height: 150px;
+                   background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                   border-radius: 0px">
+            <f:facet name="left">
+                <img src="img/logoues.png" height="90px" width="200px" 
+                     style="margin-top: 25px;
+                     margin-left:50px"
+                     onclick="location.href = 'principal.jsf'"/>
+            </f:facet>
+            <f:facet name="right">
+                <p:commandButton class="menu" value="::" 
+                                 style="margin-top: 40px; 
+                                 margin-right: 20px; 
+                                 border: 0px !important;
+                                 background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                                 color: azure" 
+                                 rendered="#{manejadorLogin.loginadmin()}" oncomplete="PF('sidebar2').show()" />
+            </f:facet>
+        </p:toolbar>
+        <!--Menu lateral superior izquierdo-->
+        <p:sidebar widgetVar="sidebar2" position="right" baseZIndex="10000">
+            <h1 style="font-weight:normal; text-align: center">Administración de Cursos</h1>
+            <!--   <p:commandButton value="Cancel" oncomplete="PF('sidebar2').hide()"/>-->
+            <center>
+                <img src="img/logoues.png" width="200px" height="120px" onclick="location.href = 'principal.jsf'" style="margin: 20px"/>
+            </center>
+            <br/><br/>
+            <p:commandButton value="Nuevo Curso" class="btnMenu" 
+                             style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                             color: azure"
+                             onclick="location.href = 'creacion.jsf'"/> <!--styleClass="boton_personalizado -->
+            <p:separator style="margin:  5px"/>
+            <p:commandButton value="Mis cursos" class="btnMenu" 
+                             style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                             color: azure"
+                             onclick="location.href = 'miscursos.jsf'"/> <!--class="boton_personalizado"-->
+            <p:separator style="margin: 5px"/>
+            <p:commandButton value="Cursos Archivados" class="btnMenu" 
+                             style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                             color: azure"
+                             onclick="location.href = 'archivados.jsf'"/> <!--class="boton_personalizado"-->
+            <p:separator style="margin: 5px"/>
+            <p:commandButton value="Estadisticas" 
+                             style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                             color: azure"
+                             class="btnMenu"/>
+            <p:separator style="margin: 5px"/>
+            <h:form>
+                <p:commandButton value="Cerrar Sesión" 
+                                 style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857); 
+                                 color: azure"
+                                 class="btnMenu" action="#{manejadorLogin.cerrarsesion()}"/>
+                <p:separator style="margin:  5px"/>
+            </h:form>   
+        </p:sidebar>
+
+
+        <p:dialog header="¿Desea cerrar sesión?" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="100">
+            <center>
+                <h:form>
+                    <p:commandButton value="SI" action="#{manejadorLogin.cerrarsesion()}"/>
+                </h:form>
+                <p:commandButton value="NO" onclick="PF('dlg3').hide();$('#form').trigger('reset');" type="button"/>
+            </center>
+        </p:dialog>
+
+        <style type="text/css">
+            .value {
+                font-weight: bold;
+            }
+        </style>
+        <h:form id="cursosArchivados" style="height: 600px">
+            <p:dataTable var="cursoArchivados" value="#{manejadorCursos.listaCursoArchivado}" paginator="true" rows="10"
+                         paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{manejadorCursos.curso}" id="idCursoSelected" lazy="true" rowKey="#{cursoArchivados.idCurso}" >
+                <p:ajax event="rowSelect" listener="#{manejadorCursos.onRowSelect}" update=":cursosArchivados:carArchivar" />
+                <f:facet name="header">
+                    Cursos UESFMOcc
+                </f:facet>
+                <p:column headerText="Id"  >
+                    <h:outputText value="#{cursoArchivados.idCurso}" />
+                </p:column>
+                <p:column headerText="Nombre" >
+                    <h:outputText value="#{cursoArchivados.nombreCurso}" />
+                </p:column>
+                <p:column headerText="descripcion" >
+                    <h:outputText value="#{cursoArchivados.descripcion}" />
+                </p:column>
+
+            </p:dataTable>
+            <p:contextMenu for="idCursoSelected">
+                <p:menuitem value="Reactivar Curso" update="cursoDetail" oncomplete="PF('carArchivar').show()"/>
+            </p:contextMenu>
+
+            <p:dialog id="cursoDetail" header="Car Detail" widgetVar="carArchivar" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="carArchivar" style="text-align:center; border: none">
+                    <p:panelGrid  columns="2" rendered="#{not empty manejadorCursos.curso}" columnClasses="label,value">
+                        <f:facet name="header">
+                            <p:outputLabel value="¿Desea reactivar Curso #{manejadorCursos.curso.nombreCurso} ?" />
+                        </f:facet>
+                        <p:commandButton id="archivarSI" value="SI" action="#{manejadorCursos.reactivarCurso()}" />
+                        <p:commandButton id="archivarNO" value="NO" oncomplete="PF('carArchivar').hide()" />
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+        <f:metadata>
+            <f:viewAction action="#{manejadorLogin.loginPrincipal()}" />
+        </f:metadata>
+    </h:body>
+</html>
+

@@ -47,6 +47,20 @@ public class CursoFacade extends AbstractFacade<Curso> {
         }
         return cursos;
     }
+    
+        public List<Curso> findArchivados() {
+        try {
+            Query consulta = em.createNamedQuery("Curso.findByEstado");
+            consulta.setParameter("estado", false);
+            cursos = consulta.getResultList();
+            if (!cursos.isEmpty() && cursos != null) {
+                return cursos;
+            }
+        } catch (Exception ex) {
+            throw ex;
+        }
+        return cursos;
+    }
 
     public Curso findByIdCurso(int id) {
         Curso cursoSeleccionado = null;

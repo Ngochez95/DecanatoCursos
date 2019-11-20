@@ -50,6 +50,11 @@
                              color: azure"
                              onclick="location.href = 'miscursos.jsf'"/> <!--class="boton_personalizado"-->
             <p:separator style="margin: 5px"/>
+            <p:commandButton value="Cursos Archivados" class="btnMenu" 
+                             style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                             color: azure"
+                             onclick="location.href = 'archivados.jsf'"/> <!--class="boton_personalizado"-->
+            <p:separator style="margin: 5px"/>
             <p:commandButton value="Estadisticas" 
                              style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
                              color: azure"
@@ -162,14 +167,14 @@
                                      placeholder="Carnet" required="true" requiredMessage="Carnet requerido" mask="aa99999" style="width: 100%"></p:inputMask>
                         <p:message for="carnet" />
 
-                        <p:inputText id="email" class="input1" type="text" value="#{manejadorCursos.estudiante.correoEstudiante}" 
+                        <p:inputMask id="email" class="input1" type="text" value="#{manejadorCursos.estudiante.correoEstudiante}" 
                                      placeholder="Correo" required="true"
                                      requiredMessage="Email Requerido"
                                      validatorMessage="Formato de email incorecto"
-                                     size="30" maxlength="25" style="width: 100%">
-                            <f:validateRegex
-                                pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                        </p:inputText>
+                                     size="30" maxlength="25" style="width: 100%" mask="aa99999?@ues.edu.sv">
+                           <!-- <f:validateRegex
+                                pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />  -->
+                        </p:inputMask>
                         <p:message for="email" />
 
                         <p:selectOneRadio id="sexo" value="#{manejadorCursos.estudiante.sexo}" unselectable="true" required="true" requiredMessage="Seleccione Sexo" style="align-content: center">

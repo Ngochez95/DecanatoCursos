@@ -57,7 +57,7 @@ public class ManejadorCursos implements Serializable {
 
     private Curso curso;
     private Curso cursoseleccionado;
-    private List<Curso> listaCursos;
+    private List<Curso> listaCursos, listaCursoArchivado;
     private List<Estudiante> estudiantesCurso;
     private Date fechaInicio, fechaFinal;
     private CursoEstudiante cursoEstudiante;
@@ -78,6 +78,7 @@ public class ManejadorCursos implements Serializable {
     @PostConstruct
     public void init() {
         listaCursos = cursofd.findActivo();
+        listaCursoArchivado=cursofd.findArchivados();
         estudiantesCurso = cursofd.findbyCursoEStudiante(46);
     }
 
@@ -95,7 +96,7 @@ public class ManejadorCursos implements Serializable {
             exito = fechaInicio.before(curso.getFechaFin());
             if (curso.getCupo() == 0) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso", "Cupo debe ser mayor a cero"));
-            } else if (exito == true) {
+            } else if (exito == true || curso.getFechaInicio().equals(curso.getFechaFin())) {
                 curso.setEstado(true);
                 exitoCreacion = cursofd.crear(curso);
                 if (exitoCreacion == true) {
@@ -128,8 +129,8 @@ public class ManejadorCursos implements Serializable {
         try {
             boolean exito, exitoModificacion;
             fechaInicio = curso.getFechaInicio();
-            exito = fechaInicio.before(curso.getFechaFin());
-            if (exito == true) {
+            exito = fechaInicio.equals(curso.getFechaFin());
+            if (fechaInicio.equals(curso.getFechaFin()) || curso.getFechaInicio().before(curso.getFechaFin())) {
                 exitoModificacion = cursofd.editar(curso);
                 if (exitoModificacion == true) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Edición con exito"));
@@ -161,7 +162,32 @@ public class ManejadorCursos implements Serializable {
         try {
             curso.setEstado(false);
             cursofd.edit(curso);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Curso Archivado"));
+            try {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Curso Archivado"));
+
+                FacesContext.getCurrentInstance().getExternalContext().redirect("principal.jsf");
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            throw e;
+
+        }
+    }
+    
+    public void reactivarCurso() {
+        try {
+            curso.setEstado(true);
+            cursofd.edit(curso);
+            try {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Curso Archivado"));
+
+                FacesContext.getCurrentInstance().getExternalContext().redirect("principal.jsf");
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         } catch (Exception e) {
             throw e;
 
@@ -184,6 +210,16 @@ public class ManejadorCursos implements Serializable {
         this.listaCursos = listaCursos;
     }
 
+    public List<Curso> getListaCursoArchivado() {
+        return listaCursoArchivado;
+    }
+
+    public void setListaCursoArchivado(List<Curso> listaCursoArchivado) {
+        this.listaCursoArchivado = listaCursoArchivado;
+    }
+
+    
+    
     public Curso getCursoseleccionado() {
         return cursoseleccionado;
     }
