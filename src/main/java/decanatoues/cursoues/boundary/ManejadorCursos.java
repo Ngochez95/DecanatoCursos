@@ -285,7 +285,7 @@ public class ManejadorCursos implements Serializable {
             boolean exito;
             mail = new MailService();
             estudiante.setIdCarreraFk(cf.find(idCarrera));
-
+            estudiante.setCorreoEstudiante(estudiante.getCarnet()+"@ues.edu.sv");
             exito = ef.crear(estudiante);
             System.out.println("entro al método para agregar");
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Estudainte agregado"));

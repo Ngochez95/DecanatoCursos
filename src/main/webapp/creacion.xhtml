@@ -21,17 +21,18 @@
                        border-radius: 0px;
                        ">
                 <f:facet name="left">
-                    <img src="img/logoues.png" height="90px" width="200px" onclick="location.href = 'principal.jsf'" 
+                    <img src="img/LogouesP.png" height="90px" width="200px" onclick="location.href = 'principal.jsf'" 
                          style="margin-top: 25px;
                          margin-left: 50px"/>
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton value="∷" class="menu" rendered="#{manejadorLogin.loginadmin()}" oncomplete="PF('sidebar2').show()" 
                                      style="margin-top: 40px; 
-                                 margin-right: 20px; 
-                                 border: 0px !important;
-                                 background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
-                                 color: azure"/>
+                                     margin-right: 20px; 
+                                     border: 0px !important;
+                                     width: 100%;
+                                     background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                                     color: azure"/>
                 </f:facet>
             </p:toolbar>
 
@@ -51,6 +52,11 @@
                 <p:commandButton value="Mis cursos" style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
                                  color: azure;
                                  text-align: center" class="btnMenu" onclick="location.href = 'miscursos.jsf'"/>
+                <p:separator style="margin: 5px"/>
+                <p:commandButton value="Cursos Archivados" class="btnMenu" 
+                                 style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                                 color: azure"
+                                 onclick="location.href = 'archivados.jsf'"/> <!--class="boton_personalizado"-->
                 <p:separator style="margin: 5px"/>
                 <p:commandButton value="Estadisticas" style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
                                  color: azure;
@@ -92,10 +98,10 @@
                     </div>
 
                     <div class="wrap-input1 validate-input"  data-validate = "Subject is required" >
-                        
-                            <p:calendar id="fechaInicioCurso" class="input1" value="#{manejadorCursos.curso.fechaInicio}" placeholder="Fecha de Inicio" required="true" requiredMessage="Fecha Inicio requerida" mask="99/99/99"/>
-                            <p:message for="fechaInicioCurso" />
-                            <span class="shadow-input1"></span>
+
+                        <p:calendar id="fechaInicioCurso" class="input1" value="#{manejadorCursos.curso.fechaInicio}" placeholder="Fecha de Inicio" required="true" requiredMessage="Fecha Inicio requerida" mask="99/99/99"/>
+                        <p:message for="fechaInicioCurso" />
+                        <span class="shadow-input1"></span>
                     </div>
 
                     <div class="wrap-input1 validate-input" data-validate = "Subject is required">
