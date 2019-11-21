@@ -100,11 +100,11 @@
                                color: azure">
                     <p:panelGrid id="panel" columns="3" layout="grid"  style="width: 775px; height: 300px"> 
                         <p:outputLabel for="nombreCurso"  value="Nombre" />
-                        <p:inputText id="nombreCurso" value="#{manejadorCursos.curso.nombreCurso}" required="true" requiredMessage="Nombre requeridp"/>
+                        <p:inputText id="nombreCurso" value="#{manejadorCursos.curso.nombreCurso}" required="true" requiredMessage="Nombre requerido" maxlength="25"/>
                         <p:message for="nombreCurso" />
 
                         <p:outputLabel for="descripcionCurso" value="Descripcion" />
-                        <p:inputTextarea id="descripcionCurso" value="#{manejadorCursos.curso.descripcion}" required="true" requiredMessage="Descripcion requerida"/>
+                        <p:inputTextarea id="descripcionCurso" value="#{manejadorCursos.curso.descripcion}" required="true" requiredMessage="Descripcion requerida" maxlength="300"/>
                         <p:message for="descripcionCurso" />
 
 

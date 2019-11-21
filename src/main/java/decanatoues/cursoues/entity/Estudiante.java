@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Estudiante.findBySexo", query = "SELECT e FROM Estudiante e WHERE e.sexo = :sexo")
     , @NamedQuery(name = "Estudiante.findByCorreoEstudiante", query = "SELECT e FROM Estudiante e WHERE e.correoEstudiante = :correoEstudiante")
     ,@NamedQuery(name = "Estudiante.findCountByIdCurso", query = "SELECT  count(e) from Estudiante as e join e.cursoEstudianteList as cel join cel.idCursosFk as idc where idc.idCurso= :idcurso")
-    ,@NamedQuery(name = "Estudiante.findCursoByidCursoAndCarnet", query = "SELECT e from Estudiante as e join e.cursoEstudianteList as ces join ces.idCursosFk as idc where idc.idCurso=:idcurso and e.carnet=:carnet")
+    ,@NamedQuery(name = "Estudiante.findCursoByidCursoAndCarnet", query = "SELECT e from Estudiante as e join e.cursoEstudianteList as ces join ces.idCursosFk as idc where idc.idCurso= :idcurso and e.carnet=:carnet")
     , @NamedQuery(name = "Estudiante.findByDepartamento", query = "SELECT e FROM Estudiante e WHERE e.idCarreraFk.idDepartamentoFk.idDepartamento= :id")
     , @NamedQuery(name = "Estudiante.findByCorreoEstudiante", query = "SELECT e FROM Estudiante e WHERE e.correoEstudiante = :correoEstudiante")})
 public class Estudiante implements Serializable {

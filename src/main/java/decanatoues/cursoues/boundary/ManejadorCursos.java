@@ -86,7 +86,6 @@ public class ManejadorCursos implements Serializable {
 
     public void llenarLista() {
         idCurso = curso.getIdCurso();
-
     }
 
     public void crearcurso() {
@@ -279,25 +278,28 @@ public class ManejadorCursos implements Serializable {
     }
 
     public void agregaEstudiante() {
-        try {
-            boolean exito;
-            estudiante.setIdCarreraFk(cf.find(idCarrera));
-            estudiante.setCorreoEstudiante(estudiante.getCarnet() + "@ues.edu.sv");
-            Estudiante estudianteExistente = ef.FindByCarnetExistente(estudiante.getCarnet());
-            if (estudianteExistente != null) {
-                AgregarAlcurso(estudianteExistente);
-            } else {
-                exito = ef.crear(estudiante);
-                if (exito) {
-                    AgregarAlcurso(estudiante);
+        if (ef.EstudiantesCount(curso.getIdCurso()) < curso.getCupo()) {
+            try {
+                boolean exito;
+                estudiante.setIdCarreraFk(cf.find(idCarrera));
+                estudiante.setCorreoEstudiante(estudiante.getCarnet() + "@ues.edu.sv");
+                Estudiante estudianteExistente = ef.FindByCarnetExistente(estudiante.getCarnet());
+                if (estudianteExistente != null) {
+                    AgregarAlcurso(estudianteExistente);
                 } else {
-                    
-                }
-            }
-            System.out.println("entro al método para agregar");
-        } catch (Exception ex) {
-        }
+                    exito = ef.crear(estudiante);
+                    if (exito) {
+                        AgregarAlcurso(estudiante);
+                    } else {
 
+                    }
+                }
+                System.out.println("entro al método para agregar");
+            } catch (Exception ex) {
+            }
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Error", "Ya no hay cupos disponibles"));
+        }
     }
 
     public void AgregarAlcurso(Estudiante est) {
@@ -307,7 +309,7 @@ public class ManejadorCursos implements Serializable {
             cursoEstudiante.setIdCursosFk(curso);
             cursoEstudiante.setEstadoCursoEstudiante(true);
             cef.crear(cursoEstudiante);
-            mail.enviaMensaje(est.getCorreoEstudiante());
+            mail.enviaMensaje(est, curso);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Curso Estudiante agregado"));
             //reset los componentes
             estudiante.setNombreEstudiante("");

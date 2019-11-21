@@ -9,6 +9,7 @@ import decanatoues.cursoues.entity.Curso;
 import decanatoues.cursoues.entity.Estudiante;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -21,6 +22,9 @@ import javax.persistence.Query;
 public class CursoFacade extends AbstractFacade<Curso> {
 
     List<Curso> cursos = null;
+    
+    @Inject
+    private EstudianteFacade ef;
 
     @PersistenceContext(unitName = "decanatoUes_CursoUes_war_1.0-SNAPSHOTPU")
     private EntityManager em;

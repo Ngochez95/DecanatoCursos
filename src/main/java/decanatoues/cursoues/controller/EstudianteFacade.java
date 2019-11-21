@@ -39,7 +39,7 @@ public class EstudianteFacade extends AbstractFacade<Estudiante> {
             Query consulta = em.createNamedQuery("Estudiante.findByCarnet");
             consulta.setParameter("carnet", carnet);
             estudiante = consulta.getResultList();
-            if (!estudiante.isEmpty() && estudiante != null) {
+            if (!(estudiante.isEmpty()) && estudiante != null) {
                 return estudiante.get(0);
             }
         } catch (Exception ex) {
@@ -86,7 +86,8 @@ public class EstudianteFacade extends AbstractFacade<Estudiante> {
             Query consulta = em.createNamedQuery("Estudiante.findCountByIdCurso");
             consulta.setParameter("idcurso", idcurso);
             inscriptos = Integer.parseInt("" + consulta.getSingleResult());
-            if (!estudiante.isEmpty() && estudiante != null) {
+            if (inscriptos>0) {
+                System.out.println("Inscritos: "+ inscriptos);
                 return inscriptos;
             }
         } catch (Exception ex) {
