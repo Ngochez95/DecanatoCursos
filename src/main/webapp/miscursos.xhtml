@@ -100,21 +100,21 @@
                                color: azure">
                     <p:panelGrid id="panel" columns="3" layout="grid"  style="width: 775px; height: 300px"> 
                         <p:outputLabel for="nombreCurso"  value="Nombre" />
-                        <p:inputText id="nombreCurso" value="#{manejadorCursos.curso.nombreCurso}" style="color: azure" required="true" requiredMessage="Nombre requeridp"/>
+                        <p:inputText id="nombreCurso" value="#{manejadorCursos.curso.nombreCurso}" required="true" requiredMessage="Nombre requeridp"/>
                         <p:message for="nombreCurso" />
 
                         <p:outputLabel for="descripcionCurso" value="Descripcion" />
-                        <p:inputTextarea id="descripcionCurso" value="#{manejadorCursos.curso.descripcion}" style="color:azure" required="true" requiredMessage="Descripcion requerida"/>
+                        <p:inputTextarea id="descripcionCurso" value="#{manejadorCursos.curso.descripcion}" required="true" requiredMessage="Descripcion requerida"/>
                         <p:message for="descripcionCurso" />
 
 
                         <p:outputLabel for="fechaInicio" value="Fecha inicio" />
-                        <p:calendar id="fechaInicio" value="#{manejadorCursos.curso.fechaInicio}" required="true" style="color: azure" requiredMessage="Fecha inicio requerida" mask="99/99/99"/>
+                        <p:calendar id="fechaInicio" value="#{manejadorCursos.curso.fechaInicio}" required="true" requiredMessage="Fecha inicio requerida" mask="99/99/99"/>
                         <p:message for="fechaInicio" />
 
 
                         <p:outputLabel for="fechaFin" value="Fecha fin" />
-                        <p:calendar id="fechaFin" value="#{manejadorCursos.curso.fechaFin}" style="color: azure" required="true" requiredMessage="Fecha fin requerida" mask="99/99/99" />
+                        <p:calendar id="fechaFin" value="#{manejadorCursos.curso.fechaFin}" required="true" requiredMessage="Fecha fin requerida" mask="99/99/99" />
                         <p:message for="fechaFin" />
 
 
@@ -139,12 +139,20 @@
                 </p:outputPanel>
             </p:dialog>
             <p:dialog header="Estudiantes del curso" widgetVar="estudiantesCurso" modal="true" style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
-                               color: azure" showEffect="fade" hideEffect="fade" resizable="false">
-                <p:dataTable var="estudiantes" value="#{manejadorCursos.estudiantesCurso}">
-                    <p:column headerText="ID">
+                      color: azure" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:dataTable id="estudiantesCursos" var="estudiantes" value="#{manejadorCursos.estudiantesCurso}">
+                    <div style="float: right; padding-top: 5px">
+                        <h:commandLink>
+                            <p:graphicImage url="img/logoues.png" width="24" title="Exportar a PDF"/>
+                            <p:dataExporter type="pdf" target="estudiantesCursos" fileName="Ejemplo"/>
+                        </h:commandLink>
+                    </div>
+                    <p:column 
+                        headerText="ID">
                         <h:outputText value="#{estudiantes.idEstudiante}"/>
                     </p:column>
-                    <p:column headerText="nombre">
+                    <p:column
+                        headerText="nombre">
                         <h:outputText value="#{estudiantes.nombreEstudiante}"/>
                     </p:column>
                     <p:column headerText="correo">
