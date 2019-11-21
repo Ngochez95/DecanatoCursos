@@ -38,7 +38,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Estudiante.findByApellidoEstudiante", query = "SELECT e FROM Estudiante e WHERE e.apellidoEstudiante = :apellidoEstudiante")
     , @NamedQuery(name = "Estudiante.findByCarnet", query = "SELECT e FROM Estudiante e WHERE e.carnet = :carnet")
     , @NamedQuery(name = "Estudiante.findBySexo", query = "SELECT e FROM Estudiante e WHERE e.sexo = :sexo")
-    , @NamedQuery(name = "Estudiante.findByCorreoEstudiante", query = "SELECT e FROM Estudiante e WHERE e.correoEstudiante = :correoEstudiante")})
+    , @NamedQuery(name = "Estudiante.findByCorreoEstudiante", query = "SELECT e FROM Estudiante e WHERE e.correoEstudiante = :correoEstudiante")
+    ,@NamedQuery(name = "Estudiante.findCountByIdCurso", query = "SELECT  count(e) from Estudiante as e join e.cursoEstudianteList as cel join cel.idCursosFk as idc where idc.idCurso= :idcurso")
+    ,@NamedQuery(name = "Estudiante.findCursoByidCursoAndCarnet", query = "SELECT e from Estudiante as e join e.cursoEstudianteList as ces join ces.idCursosFk as idc where idc.idCurso=:idcurso and e.carnet=:carnet")})
 public class Estudiante implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -182,5 +184,5 @@ public class Estudiante implements Serializable {
     public String toString() {
         return "decanatoues.cursoues.entity.Estudiante[ idEstudiante=" + idEstudiante + " ]";
     }
-    
+
 }

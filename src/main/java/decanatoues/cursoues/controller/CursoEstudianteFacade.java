@@ -31,5 +31,5 @@ public class CursoEstudianteFacade extends AbstractFacade<CursoEstudiante> {
     public CursoEstudianteFacade() {
         super(CursoEstudiante.class);
     }
-
+    
 }

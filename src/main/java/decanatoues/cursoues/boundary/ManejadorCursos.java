@@ -80,7 +80,7 @@ public class ManejadorCursos implements Serializable {
     @PostConstruct
     public void init() {
         listaCursos = cursofd.findActivo();
-        listaCursoArchivado=cursofd.findArchivados();
+        listaCursoArchivado = cursofd.findArchivados();
         estudiantesCurso = cursofd.findbyCursoEStudiante(46);
     }
 
@@ -177,7 +177,7 @@ public class ManejadorCursos implements Serializable {
 
         }
     }
-    
+
     public void reactivarCurso() {
         try {
             curso.setEstado(true);
@@ -220,8 +220,6 @@ public class ManejadorCursos implements Serializable {
         this.listaCursoArchivado = listaCursoArchivado;
     }
 
-    
-    
     public Curso getCursoseleccionado() {
         return cursoseleccionado;
     }
@@ -283,42 +281,49 @@ public class ManejadorCursos implements Serializable {
     public void agregaEstudiante() {
         try {
             boolean exito;
-            mail = new MailService();
             estudiante.setIdCarreraFk(cf.find(idCarrera));
-            estudiante.setCorreoEstudiante(estudiante.getCarnet()+"@ues.edu.sv");
-            exito = ef.crear(estudiante);
-            System.out.println("entro al método para agregar");
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Estudainte agregado"));
-
-            if (exito == true) {
-                cursoEstudiante.setIdEstudianteFk(estudiante);
-                cursoEstudiante.setIdCursosFk(curso);
-                cursoEstudiante.setEstadoCursoEstudiante(true);
-                mail.enviaMensaje(estudiante.getCorreoEstudiante()+"@ues.edu.sv");
-
-                cef.crear(cursoEstudiante);
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Curso Estudiante agregado"));
-                //reset los componentes
-                estudiante.setNombreEstudiante("");
-                estudiante.setApellidoEstudiante("");
-                estudiante.setCorreoEstudiante("");
-                estudiante.setCarnet("");
-                estudiante.setSexo(true);
-
-                try {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Estudiante inscrito"));
-
-                    FacesContext.getCurrentInstance().getExternalContext().redirect("principal.jsf");
-                } catch (IOException ex) {
-                    Logger.getLogger(CookieInstance.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
+            estudiante.setCorreoEstudiante(estudiante.getCarnet() + "@ues.edu.sv");
+            Estudiante estudianteExistente = ef.FindByCarnetExistente(estudiante.getCarnet());
+            if (estudianteExistente != null) {
+                AgregarAlcurso(estudianteExistente);
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Registo ha fallado"));
+                exito = ef.crear(estudiante);
+                if (exito) {
+                    AgregarAlcurso(estudiante);
+                } else {
+                }
             }
+            System.out.println("entro al método para agregar");
         } catch (Exception ex) {
         }
 
+    }
+
+    public void AgregarAlcurso(Estudiante est) {
+        mail = new MailService();
+        if (!(ef.EstudianteInscripto(curso.getIdCurso(), est.getCarnet()))) {
+            cursoEstudiante.setIdEstudianteFk(est);
+            cursoEstudiante.setIdCursosFk(curso);
+            cursoEstudiante.setEstadoCursoEstudiante(true);
+            cef.crear(cursoEstudiante);
+            mail.enviaMensaje(est.getCorreoEstudiante());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Curso Estudiante agregado"));
+            //reset los componentes
+            estudiante.setNombreEstudiante("");
+            estudiante.setApellidoEstudiante("");
+            estudiante.setCorreoEstudiante("");
+            estudiante.setCarnet("");
+            estudiante.setSexo(true);
+            try {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Estudiante inscrito"));
+
+                FacesContext.getCurrentInstance().getExternalContext().redirect("principal.jsf");
+            } catch (IOException ex) {
+                Logger.getLogger(CookieInstance.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Error", "El Carnet ya esta registrado en este curso"));
+        }
     }
 
     public void buttonAction() {
