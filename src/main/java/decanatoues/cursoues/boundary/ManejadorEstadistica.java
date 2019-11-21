@@ -1,6 +1,7 @@
 package decanatoues.cursoues.boundary;
 
 import decanatoues.cursoues.controller.EstudianteFacade;
+import decanatoues.cursoues.entity.CursoEstudiante;
 import decanatoues.cursoues.entity.Estudiante;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.PieChartModel;
 
 /**
  *
@@ -29,7 +31,11 @@ public class ManejadorEstadistica implements Serializable {
 
     private BarChartModel barModelGenero;
     private BarChartModel barModelDepartamento;
+    private PieChartModel pieModelGenero;
+    private PieChartModel pieModelDepartamento;
     private List<Estudiante> listaGenero, listaDepto;
+    private List<CursoEstudiante> listaEstudiantes;
+    private int idCurso;
 
     @PostConstruct
     public void init() {
@@ -39,6 +45,8 @@ public class ManejadorEstadistica implements Serializable {
     public void llenar() {
         createBarModelGenero();
         createBarModelDepto();
+        createPieModelDepartamento();
+        createPieModelGenero();
     }
 
     public List<Estudiante> llenarPorGenero(boolean genero) {
@@ -53,11 +61,7 @@ public class ManejadorEstadistica implements Serializable {
 
     public List<Estudiante> llenarPorDepto(int id) {
         List<Estudiante> lista = ef.findByDepartamento(id);
-        if (lista != null && !lista.isEmpty()) {
-            listaDepto = lista;
-        } else {
-            lista = new ArrayList<>();
-        }
+        listaDepto = lista;
         return listaDepto;
     }
 
@@ -120,6 +124,40 @@ public class ManejadorEstadistica implements Serializable {
         yAxis.setMax(ef.count() + 10);
     }
 
+    private void createPieModelGenero() {
+        pieModelGenero = new PieChartModel();
+
+        pieModelGenero.set("Masculino", llenarPorGenero(true).size());
+        pieModelGenero.set("Femenino", llenarPorGenero(false).size());
+
+        pieModelGenero.setTitle("Estudiantes por Genero");
+        pieModelGenero.setLegendPosition("e");
+        pieModelGenero.setShadow(true);
+        pieModelGenero.setShowDataLabels(true);
+        
+    }
+    
+    private void createPieModelDepartamento() {
+        pieModelDepartamento = new PieChartModel();
+
+        pieModelDepartamento.set("Medicina", llenarPorDepto(0).size());
+        pieModelDepartamento.set("CC Juridicas", llenarPorDepto(1).size());
+        pieModelDepartamento.set("CC Sociales, Filosofia y Letras", llenarPorDepto(2).size());
+        pieModelDepartamento.set("Idiomas", llenarPorDepto(3).size());
+        pieModelDepartamento.set("Ingenieria", llenarPorDepto(4).size());
+        pieModelDepartamento.set("CC Economicas", llenarPorDepto(5).size());
+        pieModelDepartamento.set("Quimica", llenarPorDepto(6).size());
+        pieModelDepartamento.set("Biologia", llenarPorDepto(7).size());
+        pieModelDepartamento.set("Fisica", llenarPorDepto(8).size());
+        pieModelDepartamento.set("Matematica", llenarPorDepto(9).size());
+
+        pieModelDepartamento.setTitle("Estudiantes por Departamento");
+        pieModelDepartamento.setLegendPosition("e");
+        pieModelDepartamento.setShadow(true);
+        pieModelDepartamento.setShowDataLabels(true);
+    }
+
+
     public BarChartModel getBarModelGenero() {
         return barModelGenero;
     }
@@ -127,4 +165,21 @@ public class ManejadorEstadistica implements Serializable {
     public BarChartModel getBarModelDepartamento() {
         return barModelDepartamento;
     }
+
+    public PieChartModel getPieModelGenero() {
+        return pieModelGenero;
+    }
+
+    public PieChartModel getPieModelDepartamento() {
+        return pieModelDepartamento;
+    }
+
+    public int getIdCurso() {
+        return idCurso;
+    }
+
+    public void setIdCurso(int idCurso) {
+        this.idCurso = idCurso;
+    }
+
 }

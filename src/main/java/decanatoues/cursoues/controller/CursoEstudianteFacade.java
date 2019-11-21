@@ -31,5 +31,20 @@ public class CursoEstudianteFacade extends AbstractFacade<CursoEstudiante> {
     public CursoEstudianteFacade() {
         super(CursoEstudiante.class);
     }
+    
+    public List<CursoEstudiante> findByIdCurso(int idDepto, int idCurso){
+       List<CursoEstudiante> lista= null;
+        try {
+            Query consulta = em.createNamedQuery("CursoEstudiante.findByIdEstudianteCurso");
+            consulta.setParameter("idDepto", idDepto).setParameter("idCurso", idCurso);
+            lista = consulta.getResultList();
+            if (!lista.isEmpty() && lista!= null) {
+                return lista;
+            }
+        } catch (Exception ex) {
+            throw ex;
+        }
+        return lista;
+    }
 
 }
