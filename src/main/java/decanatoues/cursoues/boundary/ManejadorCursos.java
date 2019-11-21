@@ -291,6 +291,7 @@ public class ManejadorCursos implements Serializable {
                 if (exito) {
                     AgregarAlcurso(estudiante);
                 } else {
+                    
                 }
             }
             System.out.println("entro al método para agregar");

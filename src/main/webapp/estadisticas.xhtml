@@ -3,31 +3,51 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      >
     <h:head>
         <title>Estadisticas</title>
     </h:head>
     <h:body>
+
+        <p:toolbar style="height: 60px ">
+            <f:facet name="left">
+                <img src="img/minerva.png" height="55px" width="40px"/>
+            </f:facet>
+            <f:facet name="right">
+                <p:commandButton value="∷" rendered="#{manejadorLogin.loginadmin()}" oncomplete="PF('sidebar2').show()" style="height: 55px; font-size: 24" />
+            </f:facet>
+        </p:toolbar>
+
+        <p:sidebar widgetVar="sidebar2" position="right" baseZIndex="10000">
+            <h1 style="font-weight:normal">Administración de Cursos</h1>
+            <!--   <p:commandButton value="Cancel" oncomplete="PF('sidebar2').hide()"/>-->
+            <center>
+                <img src="img/minerva.png" width="100px" height="120px"/>
+            </center>
+            <br/><br/>
+            <p:commandButton value="Nuevo Curso" styleClass="boton_personalizado" onclick="location.href = 'creacion.jsf'"/>
+            <p:separator/>
+            <p:commandButton value="Estadisticas" class="boton_personalizado"/>
+            <p:separator/>
+            <p:commandButton value="Cerrar Sesión" class="boton_personalizado" action="#{manejadorLogin.cerrarsesion()}"/>
+        </p:sidebar>
+
+
+
         <p:tabView>
             <p:tab title="Genero">
-                <p:tabView>
-                    <p:tab title="Barras">
-                          <p:chart type="bar" model="#{ManejadorEstadistica.barModel}" style="height:300px; background-color: black;"/>
-                    </p:tab>
-                    <p:tab title="Circular">
-                       <p:chart type="pie" model="#{ManejadorEstadistica.pieModel}" style="width:400px;height:300px; background-color: black;" /> 
-                    </p:tab>
-                </p:tabView>
+                <center>
+                <p:chart type="bar" model="#{manejadorEstadistica.barModelGenero}" style="height:500px"/> 
+                <p:chart type="pie" model="#{manejadorEstadistica.pieModelGenero}" style="width:900px;height:700px" /> 
+                </center>
             </p:tab>
             <p:tab title="Departamento">
-                <p:tabView>
-                    <p:tab title="Barras">
-                          <p:chart type="bar" model="#{ManejadorEstadistica.barModel}" style="height:300px; background-color: black;"/>
-                    </p:tab>
-                    <p:tab title="Circular">
-                        <p:chart type="pie" model="#{ManejadorEstadistica.pieModel}" style="width:400px;height:300px; background-color: black;" />
-                    </p:tab>
-                </p:tabView>
+                <center>
+                <p:chart type="bar" model="#{manejadorEstadistica.barModelDepartamento}" style="height:500px"/>
+                <p:chart type="pie" model="#{manejadorEstadistica.pieModelDepartamento}" style="width:900px;height:700px" />
+                </center>
             </p:tab>
         </p:tabView>
         <f:metadata>

@@ -18,7 +18,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class EstudianteFacade extends AbstractFacade<Estudiante> {
-    List<Estudiante> estudiante = null; 
+
+    List<Estudiante> estudiante = null;
 
     @PersistenceContext(unitName = "decanatoUes_CursoUes_war_1.0-SNAPSHOTPU")
     private EntityManager em;
@@ -31,10 +32,10 @@ public class EstudianteFacade extends AbstractFacade<Estudiante> {
     public EstudianteFacade() {
         super(Estudiante.class);
     }
-    
+
     //Verificar si un estudiante existe en la base de datos
-    public Estudiante FindByCarnetExistente(String carnet){
-         try {
+    public Estudiante FindByCarnetExistente(String carnet) {
+        try {
             Query consulta = em.createNamedQuery("Estudiante.findByCarnet");
             consulta.setParameter("carnet", carnet);
             estudiante = consulta.getResultList();
@@ -45,11 +46,11 @@ public class EstudianteFacade extends AbstractFacade<Estudiante> {
             throw ex;
         }
         return null;
-    }   
-    
+    }
+
     //  Verificar si el estudiante ya esta inscripto al curso
-    public Boolean EstudianteInscripto(int idcurso, String carnet){
-    try {
+    public Boolean EstudianteInscripto(int idcurso, String carnet) {
+        try {
             Query consulta = em.createNamedQuery("Estudiante.findCursoByidCursoAndCarnet");
             consulta.setParameter("idcurso", idcurso);
             consulta.setParameter("carnet", carnet);
@@ -62,14 +63,29 @@ public class EstudianteFacade extends AbstractFacade<Estudiante> {
         }
         return false;
     }
-    
+
+    public List<Estudiante> findByGenero(boolean genero) {
+        List<Estudiante> lista = null;
+        try {
+            Query consulta = em.createNamedQuery("Estudiante.findBySexo");
+            consulta.setParameter("sexo", genero);
+            lista = consulta.getResultList();
+            if (!lista.isEmpty() && lista != null) {
+                return lista;
+            }
+        } catch (Exception ex) {
+            throw ex;
+        }
+        return lista;
+    }
+
     // Cantidad de usuarios escritos
-    public int EstudiantesCount(int idcurso){
-       int inscriptos;
+    public int EstudiantesCount(int idcurso) {
+        int inscriptos;
         try {
             Query consulta = em.createNamedQuery("Estudiante.findCountByIdCurso");
             consulta.setParameter("idcurso", idcurso);
-             inscriptos = Integer.parseInt(""+consulta.getSingleResult());
+            inscriptos = Integer.parseInt("" + consulta.getSingleResult());
             if (!estudiante.isEmpty() && estudiante != null) {
                 return inscriptos;
             }
@@ -78,6 +94,21 @@ public class EstudianteFacade extends AbstractFacade<Estudiante> {
         }
         return 0;
     }
-    
-    
+
+    public List<Estudiante> findByDepartamento(int id) {
+        List<Estudiante> lista = null;
+        try {
+            Query consulta = em.createNamedQuery("Estudiante.findByDepartamento");
+            consulta.setParameter("id", id);
+            lista = consulta.getResultList();
+            if (!lista.isEmpty() && lista != null) {
+                return lista;
+
+            }
+        } catch (Exception ex) {
+            throw ex;
+        }
+
+        return lista;
+    }
 }
