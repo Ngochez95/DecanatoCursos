@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "CursoEstudiante.findAll", query = "SELECT c FROM CursoEstudiante c")
     , @NamedQuery(name = "CursoEstudiante.findByIdEstudianteCurso", query = "SELECT c FROM CursoEstudiante c WHERE c.idEstudianteCurso = :idEstudianteCurso")
+    , @NamedQuery(name = "CursoEstudiante.findByCurso", query = "SELECT ec FROM CursoEstudiante ec WHERE ec.idEstudianteFk.idCarreraFk.idDepartamentoFk.idDepartamento= :idDepto AND ec.idCursosFk.idCurso= :idCurso")
     , @NamedQuery(name = "CursoEstudiante.findByEstadoCursoEstudiante", query = "SELECT c FROM CursoEstudiante c WHERE c.estadoCursoEstudiante = :estadoCursoEstudiante")})
 public class CursoEstudiante implements Serializable {
 
@@ -110,5 +111,5 @@ public class CursoEstudiante implements Serializable {
     public String toString() {
         return "decanatoues.cursoues.entity.CursoEstudiante[ idEstudianteCurso=" + idEstudianteCurso + " ]";
     }
-    
+
 }
