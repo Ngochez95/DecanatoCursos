@@ -14,7 +14,6 @@ import decanatoues.cursoues.entity.CursoEstudiante;
 import decanatoues.cursoues.entity.Departamento;
 import decanatoues.cursoues.entity.Estudiante;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;

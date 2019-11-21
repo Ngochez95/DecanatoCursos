@@ -16,6 +16,7 @@ import decanatoues.cursoues.entity.Curso;
 import decanatoues.cursoues.entity.CursoEstudiante;
 import decanatoues.cursoues.entity.Departamento;
 import decanatoues.cursoues.entity.Estudiante;
+import decanatoues.cursoues.mail.MailService;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
@@ -66,6 +67,7 @@ public class ManejadorCursos implements Serializable {
     private String genero = "true";
     private Carrera carrera;
     ExternalContext context2 = FacesContext.getCurrentInstance().getExternalContext();
+    private MailService mail;
 
     public ManejadorCursos() {
         this.curso = new Curso();
@@ -281,7 +283,7 @@ public class ManejadorCursos implements Serializable {
     public void agregaEstudiante() {
         try {
             boolean exito;
-
+            mail = new MailService();
             estudiante.setIdCarreraFk(cf.find(idCarrera));
 
             exito = ef.crear(estudiante);
@@ -292,6 +294,7 @@ public class ManejadorCursos implements Serializable {
                 cursoEstudiante.setIdEstudianteFk(estudiante);
                 cursoEstudiante.setIdCursosFk(curso);
                 cursoEstudiante.setEstadoCursoEstudiante(true);
+                mail.enviaMensaje(estudiante.getCorreoEstudiante()+"@ues.edu.sv");
 
                 cef.crear(cursoEstudiante);
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "Curso Estudiante agregado"));
