@@ -8,45 +8,81 @@
       >
     <h:head>
         <title>Estadisticas</title>
+        <h:outputStylesheet library="css" name="principal.css"/>
     </h:head>
-    <h:body>
+    <h:body style="background-image: url(img/fondo1-1.png)">
 
-        <p:toolbar style="height: 60px ">
+        <p:toolbar style="margin: 0px;
+                   padding: 0px;
+                   width: 100%;
+                   height: 150px;
+                   background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                   border-radius: 0px">
             <f:facet name="left">
-                <img src="img/minerva.png" height="55px" width="40px"/>
+                <img src="img/LogouesP.png" height="90px" width="200px" 
+                     style="margin-top: 25px;
+                     margin-left:50px"
+                     onclick="location.href = 'principal.jsf'"/>
             </f:facet>
             <f:facet name="right">
-                <p:commandButton value="∷" rendered="#{manejadorLogin.loginadmin()}" oncomplete="PF('sidebar2').show()" style="height: 55px; font-size: 24" />
-            </f:facet>
+                <p:commandButton class="menu" value="::" 
+                                 style="margin-top: 40px; 
+                                 margin-right: 20px; 
+                                 border: 0px !important;
+                                 width: 100%;
+                                 background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                                 color: azure" 
+                                 rendered="#{manejadorLogin.loginadmin()}" oncomplete="PF('sidebar2').show()" />            </f:facet>
         </p:toolbar>
 
         <p:sidebar widgetVar="sidebar2" position="right" baseZIndex="10000">
-            <h1 style="font-weight:normal">Administración de Cursos</h1>
+            <h1 style="font-weight:normal; text-align: center">Administración de Cursos</h1>
             <!--   <p:commandButton value="Cancel" oncomplete="PF('sidebar2').hide()"/>-->
             <center>
-                <img src="img/minerva.png" width="100px" height="120px"/>
+                <img src="img/logoues.png" width="200px" height="120px" onclick="location.href = 'principal.jsf'" style="margin: 20px"/>
             </center>
             <br/><br/>
-            <p:commandButton value="Nuevo Curso" styleClass="boton_personalizado" onclick="location.href = 'creacion.jsf'"/>
-            <p:separator/>
-            <p:commandButton value="Estadisticas" class="boton_personalizado"/>
-            <p:separator/>
-            <p:commandButton value="Cerrar Sesión" class="boton_personalizado" action="#{manejadorLogin.cerrarsesion()}"/>
+            <p:commandButton value="Nuevo Curso" class="btnMenu" 
+                             style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                             color: azure"
+                             onclick="location.href = 'creacion.jsf'"/> <!--styleClass="boton_personalizado -->
+            <p:separator style="margin:  5px"/>
+            <p:commandButton value="Mis cursos" class="btnMenu" 
+                             style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                             color: azure"
+                             onclick="location.href = 'miscursos.jsf'"/> <!--class="boton_personalizado"-->
+            <p:separator style="margin: 5px"/>
+            <p:commandButton value="Cursos Archivados" class="btnMenu" 
+                             style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                             color: azure"
+                             onclick="location.href = 'archivados.jsf'"/> <!--class="boton_personalizado"-->
+            <p:separator style="margin: 5px"/>
+            <p:commandButton value="Estadisticas" 
+                             style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                             color: azure"
+                             class="btnMenu" onclick="location.href = 'estadisticas.jsf'"/>
+            <p:separator style="margin: 5px"/>
+
+            <h:form>
+                <p:commandButton value="Cerrar Sesión" 
+                                 style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857); 
+                                 color: azure"
+                                 class="btnMenu" action="#{manejadorLogin.cerrarsesion()}"/>
+                <p:separator style="margin:  5px"/>
+            </h:form> 
         </p:sidebar>
-
-
 
         <p:tabView>
             <p:tab title="Genero">
                 <center>
-                <p:chart type="bar" model="#{manejadorEstadistica.barModelGenero}" style="height:500px"/> 
-                <p:chart type="pie" model="#{manejadorEstadistica.pieModelGenero}" style="width:900px;height:700px" /> 
+                    <p:chart type="bar" model="#{manejadorEstadistica.barModelGenero}" style="height:500px"/> 
+                    <p:chart type="pie" model="#{manejadorEstadistica.pieModelGenero}" style="width:900px;height:700px" /> 
                 </center>
             </p:tab>
             <p:tab title="Departamento">
                 <center>
-                <p:chart type="bar" model="#{manejadorEstadistica.barModelDepartamento}" style="height:500px"/>
-                <p:chart type="pie" model="#{manejadorEstadistica.pieModelDepartamento}" style="width:900px;height:700px" />
+                    <p:chart type="bar" model="#{manejadorEstadistica.barModelDepartamento}" style="height:500px"/>
+                    <p:chart type="pie" model="#{manejadorEstadistica.pieModelDepartamento}" style="width:900px;height:700px" />
                 </center>
             </p:tab>
         </p:tabView>

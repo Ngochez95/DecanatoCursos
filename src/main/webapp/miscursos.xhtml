@@ -53,7 +53,7 @@
                                  color: azure"
                                  onclick="location.href = 'archivados.jsf'"/> <!--class="boton_personalizado"-->
                 <p:separator style="margin: 5px"/>
-                <p:commandButton value="Estadisticas" style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
+                <p:commandButton value="Estadisticas" onclick="location.href = 'estadisticas.jsf'" style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
                                  color: azure" class="btnMenu"/>
                 <p:separator style="margin: 5px"/>
                 <p:commandButton value="Cerrar Sesión" style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
@@ -141,12 +141,6 @@
             <p:dialog header="Estudiantes del curso" widgetVar="estudiantesCurso" modal="true" style="background: linear-gradient(150deg, #8b7171, #ac2925, #aa5857);
                       color: azure" showEffect="fade" hideEffect="fade" resizable="false">
                 <p:dataTable id="estudiantesCursos" var="estudiantes" value="#{manejadorCursos.estudiantesCurso}">
-                    <div style="float: right; padding-top: 5px">
-                        <h:commandLink>
-                            <p:graphicImage url="img/logoues.png" width="24" title="Exportar a PDF"/>
-                            <p:dataExporter type="pdf" target="estudiantesCursos" fileName="Ejemplo"/>
-                        </h:commandLink>
-                    </div>
                     <p:column 
                         headerText="ID">
                         <h:outputText value="#{estudiantes.idEstudiante}"/>
@@ -159,6 +153,18 @@
                         <h:outputText value="#{estudiantes.correoEstudiante}"/>
                     </p:column>
                 </p:dataTable>
+                <center>
+                    <p:panelGrid>
+                        <p:column>
+                            <div style="float: right; padding-top: 5px">
+                                <h:commandLink>
+                                    <p:graphicImage url="img/pdf.png" width="24" title="Exportar a PDF"/>
+                                    <p:dataExporter type="pdf" target="estudiantesCursos" fileName="Ejemplo"/>
+                                </h:commandLink>
+                            </div>
+                        </p:column>
+                    </p:panelGrid>
+                </center>
             </p:dialog>
         </h:form>
         <f:metadata>
