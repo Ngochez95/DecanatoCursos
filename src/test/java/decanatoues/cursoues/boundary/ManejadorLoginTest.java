@@ -11,6 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -46,21 +47,26 @@ public class ManejadorLoginTest {
     }
 
 
-//    @Test
-//    public void camposVacios() throws MalformedURLException, InterruptedException {
-//        System.setProperty("webdriver.chrome.driver", "./driverChrome/chromedriver");
-//        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-//        WebDriver driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
-//
-//        driver.get("http://35.232.215.93:8080/CursoUes-1.0-SNAPSHOT/index.jsf");
-//        driver.findElement(By.id("j_idt6:user")).sendKeys("");
-//        Thread.sleep(1500);
-//        driver.findElement(By.id("j_idt6:contra")).sendKeys("");
-//        Thread.sleep(1500);
-//        driver.findElement(By.id("j_idt6:inicio")).click();
-//        Thread.sleep(3000);
-//        assertTrue(true);
-//    }
+    @Test
+    public void camposVacios() throws MalformedURLException, InterruptedException {
+        //System.setProperty("webdriver.chrome.driver", "./driverChrome/chromedriver");
+        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+        DesiredCapabilities capabilitiesf = DesiredCapabilities.firefox();
+        WebDriver driver = new RemoteWebDriver(new URL("http://172.17.0.3:5555/wd/hub"), capabilities); 
+        WebDriver driverf = new RemoteWebDriver(new URL("http://172.17.0.4:5555/wd/hub"), capabilitiesf);
+        driver.get("http://35.232.215.93:8080/CursoUes-1.0-SNAPSHOT/index.jsf");
+        driverf.get("http://35.232.215.93:8080/CursoUes-1.0-SNAPSHOT/index.jsf");
+        driver.findElement(By.id("j_idt6:user")).sendKeys("");
+        driverf.findElement(By.id("j_idt6:user")).sendKeys("");
+        Thread.sleep(1500);
+        driver.findElement(By.id("j_idt6:contra")).sendKeys("");
+        driverf.findElement(By.id("j_idt6:contra")).sendKeys("");
+        Thread.sleep(1500);
+        driver.findElement(By.id("j_idt6:inicio")).click();
+        driverf.findElement(By.id("j_idt6:inicio")).click();
+        Thread.sleep(3000);
+        assertTrue(true);
+    }
 //
 //    @Test
 //    public void testLoginSoloUser() throws MalformedURLException, InterruptedException {
