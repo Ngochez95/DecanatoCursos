@@ -105,11 +105,11 @@
                         <h:outputText value="#{cursos.cupo}" />
 
                         <p:commandLink update=":cursosActivos:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">
-                            <h:outputText value="VER" style="margin:0 auto; color: azure"/>
+                            <h:outputText value="VER" id="idVerCurso" style="margin:0 auto; color: azure"/>
                             <f:setPropertyActionListener value="#{cursos}" target="#{manejadorCursos.curso}" />
                         </p:commandLink>
                         <p:commandLink update=":frmAdd:panelInscripcion" oncomplete="PF('inscripcionDialog').show()" title="View Detail">
-                            <h:outputText value="INSCRIBIR" style="margin:0 auto; color: azure"/>
+                            <h:outputText value="INSCRIBIR" id="idInscribirCurso" style="margin:0 auto; color: azure"/>
                             <f:setPropertyActionListener value="#{cursos}" target="#{manejadorCursos.curso}" />
                         </p:commandLink>
 

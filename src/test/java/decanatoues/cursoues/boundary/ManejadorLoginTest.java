@@ -47,11 +47,11 @@ public class ManejadorLoginTest {
     }
 
 
-    @Test
+   // @Test
     public void camposVacios() throws MalformedURLException, InterruptedException {
         //System.setProperty("webdriver.chrome.driver", "./driverChrome/chromedriver");
-        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-        DesiredCapabilities capabilitiesf = DesiredCapabilities.firefox();
+        DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+        DesiredCapabilities capabilitiesf = DesiredCapabilities.chrome();
         WebDriver driver = new RemoteWebDriver(new URL("http://172.17.0.3:5555/wd/hub"), capabilities); 
         WebDriver driverf = new RemoteWebDriver(new URL("http://172.17.0.4:5555/wd/hub"), capabilitiesf);
         driver.get("http://35.232.215.93:8080/CursoUes-1.0-SNAPSHOT/index.jsf");
